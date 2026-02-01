@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light mode - parchment/wheat */
+    --background: 44 31% 95%; /* #f5f1e8 */
+    --foreground: 0 0% 20%;
+    --sidebar-bg: 220 20% 16%; /* Transitions to content bg in light mode */
+    --content-bg: 44 31% 95%;
+
+    /* Gold palette - warm amber-bronze tones */
+    --gold-dark: 38 37% 44%; /* #9B7E46 */
+    --gold-base: 43 60% 53%; /* #D4AF37 */
+    --gold-light: 44 79% 85%; /* #F4E4C1 */
+    --gold-accent: 43 77% 45%; /* #B8860B */
+
+    --popover: 44 31% 95%;
+    --popover-foreground: 0 0% 15%;
+    --border: 0 0% 85%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Dark mode - navy backgrounds */
+    --background: 220 20% 16%; /* #2a2d3e - main content bg */
+    --foreground: 0 0% 90%;
+    --sidebar-bg: 220 25% 8%; /* #14151f - sidebar much darker */
+    --content-bg: 220 20% 16%;
+
+    --popover: 220 25% 10%;
+    --popover-foreground: 0 0% 95%;
+    --border: 0 0% 25%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-[hsl(var(--content-bg))] text-foreground antialiased;
+    font-family: 'EB Garamond', serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg,
+      hsl(var(--gold-dark)) 0%,
+      hsl(var(--gold-base)) 50%,
+      hsl(var(--gold-light)) 100%
+    );
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--gold-base));
+  }
+}
+
+/* Background texture - topographic lines */
+@layer utilities {
+  .bg-topographic {
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 40px,
+        rgba(212, 175, 55, 0.02) 40px,
+        rgba(212, 175, 55, 0.02) 41px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 40px,
+        rgba(212, 175, 55, 0.02) 40px,
+        rgba(212, 175, 55, 0.02) 41px
+      );
+  }
+
+  .bg-topographic-light {
+    background-image:
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 60px,
+        rgba(155, 126, 70, 0.03) 60px,
+        rgba(155, 126, 70, 0.03) 61px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 60px,
+        rgba(155, 126, 70, 0.03) 60px,
+        rgba(155, 126, 70, 0.03) 61px
+      );
+  }
+}
