@@ -9,7 +9,7 @@
     /* Light (daytime) mode - parchment/wheat */
     --background: 44 31% 95%; /* #f5f1e8 */
     --foreground: 0 0% 20%;
-    --sidebar-bg: 220 20% 16%; /* Sidebar stays dark in light mode */
+    --sidebar-bg: 224 41% 7%; /* Dark navy in light mode */
     --content-bg: 44 31% 95%;
 
     /* Gold palette */
@@ -29,10 +29,10 @@
 
   .dark {
     /* Dark (night) mode */
-    --background: 224 41% 7%; /* #0B0F1A */
+    --background: 30 30% 6%; /* rich dark brown */
     --foreground: 0 0% 92%;
-    --sidebar-bg: 224 41% 7%; /* #0B0F1A */
-    --content-bg: 224 41% 7%; /* #0B0F1A */
+    --sidebar-bg: 0 0% 0%; /* Black in dark mode */
+    --content-bg: 30 30% 6%; /* rich dark brown */
 
     --popover: 220 25% 10%;
     --popover-foreground: 0 0% 95%;
@@ -100,41 +100,21 @@
   }
 }
 
-/* Background texture - topographic lines */
+/* Background texture - topographic contour map */
 @layer utilities {
   .bg-topographic {
-    background-image:
-      repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 40px,
-        rgba(212, 175, 55, 0.02) 40px,
-        rgba(212, 175, 55, 0.02) 41px
-      ),
-      repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 40px,
-        rgba(212, 175, 55, 0.02) 40px,
-        rgba(212, 175, 55, 0.02) 41px
-      );
+    background-image: url('/topo2.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
   }
 
   .bg-topographic-light {
-    background-image:
-      repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 60px,
-        rgba(155, 126, 70, 0.03) 60px,
-        rgba(155, 126, 70, 0.03) 61px
-      ),
-      repeating-linear-gradient(
-        -45deg,
-        transparent,
-        transparent 60px,
-        rgba(155, 126, 70, 0.03) 60px,
-        rgba(155, 126, 70, 0.03) 61px
-      );
+    background-image: url('/topo2-light.svg?v=1');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
   }
 }

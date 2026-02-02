@@ -22,8 +22,11 @@ export function SectionContent({ sections, activeSection, onSectionChange }: Sec
 
   useEffect(() => {
     setFadeIn(false);
-    const timer = setTimeout(() => setFadeIn(true), 50);
-    return () => clearTimeout(timer);
+    const raf1 = requestAnimationFrame(() => {
+      const raf2 = requestAnimationFrame(() => setFadeIn(true));
+      return () => cancelAnimationFrame(raf2);
+    });
+    return () => cancelAnimationFrame(raf1);
   }, [activeSection]);
 
   const currentIndex = sections.findIndex(s => s.id === activeSection);
@@ -43,15 +46,30 @@ export function SectionContent({ sections, activeSection, onSectionChange }: Sec
     <div className="max-w-4xl mx-auto px-6 md:px-12 py-12 md:py-20">
       {/* Section Header with Fade-in */}
       <div
-        className="transition-opacity duration-1000"
-        style={{ opacity: fadeIn ? 1 : 0 }}
+        style={{
+          opacity: fadeIn ? 1 : 0,
+          transitionProperty: 'opacity',
+          transitionDuration: '1200ms',
+          transitionDelay: '150ms',
+          transitionTimingFunction: 'ease',
+        }}
       >
         <h1 className="text-4xl md:text-5xl lg:text-6xl mb-8 text-black dark:text-white uppercase tracking-[0.18em] leading-tight">
           {currentSection?.title}
         </h1>
 
         {/* Small decorative divider */}
-        <div className="w-32 h-0.5 mb-12 bg-gradient-to-r from-[hsl(var(--gold-dark))] via-[hsl(var(--gold-base))] to-[hsl(var(--gold-light))]" />
+        <div
+          className="w-32 h-0.5 mb-12 origin-left bg-gradient-to-r from-[hsl(var(--gold-dark))] via-[hsl(var(--gold-base))] to-[hsl(var(--gold-light))]"
+          style={{
+            transform: fadeIn ? 'scaleX(1)' : 'scaleX(0)',
+            opacity: fadeIn ? 1 : 0,
+            transitionProperty: 'opacity, transform',
+            transitionDuration: '1200ms',
+            transitionDelay: '150ms',
+            transitionTimingFunction: 'ease',
+          }}
+        />
       </div>
 
       {/* Section Content */}

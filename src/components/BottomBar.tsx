@@ -26,6 +26,8 @@ export function BottomBar({ sections, activeSection, onSectionChange, theme, onT
         before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-px
         before:bg-gradient-to-r before:from-transparent before:via-[hsl(var(--gold-text))] before:to-transparent
         before:pointer-events-none
+        after:content-[''] after:absolute after:inset-0 after:pointer-events-none
+        after:bg-gradient-to-t after:from-black after:to-[hsl(var(--sidebar-bg))]
       "
     >
       {/* Logo and Theme Toggle Row */}

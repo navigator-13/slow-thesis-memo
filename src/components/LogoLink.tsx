@@ -31,8 +31,8 @@ export function LogoLink({
           style={{ width: sizePx, height: sizePx }}
         >
           <Image
-            src="/logo-day.png"
-            alt="Logo (day)"
+            src="/logo-night.png"
+            alt="Logo (night)"
             fill
             sizes={`${sizePx}px`}
             className={`object-contain ${theme === 'light' ? 'opacity-100' : 'opacity-0'}`}
@@ -43,8 +43,8 @@ export function LogoLink({
             priority
           />
           <Image
-            src="/logo-night.png"
-            alt="Logo (night)"
+            src="/logo-day.png"
+            alt="Logo (day)"
             fill
             sizes={`${sizePx}px`}
             className={`object-contain ${theme === 'dark' ? 'opacity-100' : 'opacity-0'}`}

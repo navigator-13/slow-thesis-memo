@@ -1,0 +1,16 @@
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0,80 C50,70 80,120 120,110 S180,40 250,60 S350,20 400,80" fill="none" stroke="#888888" stroke-width="0.5"/>
+  <path d="M0,120 C60,110 90,160 140,150 S200,80 280,100 S360,60 400,120" fill="none" stroke="#888888" stroke-width="0.5"/>
+  <path d="M0,320 C40,310 70,360 120,350 S180,280 260,300 S340,260 400,320" fill="none" stroke="#888888" stroke-width="0.5"/>
+
+  <path d="M80,0 C70,50 120,80 110,120 S40,180 60,250 S20,350 80,400" fill="none" stroke="#888888" stroke-width="0.5"/>
+  <path d="M140,0 C130,60 180,90 170,140 S100,200 120,280 S80,360 140,400" fill="none" stroke="#888888" stroke-width="0.5"/>
+  <path d="M300,0 C290,40 340,70 330,120 S260,180 280,260 S240,340 300,400" fill="none" stroke="#888888" stroke-width="0.5"/>
+
+  <path d="M220,180 Q250,150 280,180 T310,220 T260,260 T200,220 Z" fill="none" stroke="#888888" stroke-width="0.5"/>
+  <path d="M235,195 Q255,175 275,195 T295,215 T265,245 T215,215 Z" fill="none" stroke="#888888" stroke-width="0.5"/>
+  <path d="M100,240 Q130,210 160,240 T190,280 T140,320 T80,280 Z" fill="none" stroke="#888888" stroke-width="0.5"/>
+
+  <path d="M350,400 C360,350 410,340 400,300 M0,300 C-10,340 40,350 50,400" fill="none" stroke="#888888" stroke-width="0.5"/>
+  <path d="M350,0 C360,50 410,60 400,100 M0,100 C-10,60 40,50 50,0" fill="none" stroke="#888888" stroke-width="0.5"/>
+</svg>
