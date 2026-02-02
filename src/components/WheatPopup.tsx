@@ -31,7 +31,7 @@ export function WheatPopup({ content, imageUrl, urlPreview }: WheatPopupProps) {
             {/* Close button */}
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-2 right-2 text-gray-400 hover:text-[hsl(var(--gold-base))] transition-colors"
+              className="absolute top-2 right-2 text-gray-400 hover:text-[hsl(var(--gold-text))] transition-colors"
               aria-label="Close"
             >
               ✕
@@ -57,7 +57,7 @@ export function WheatPopup({ content, imageUrl, urlPreview }: WheatPopupProps) {
                 href={urlPreview}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 block text-[hsl(var(--gold-base))] hover:text-[hsl(var(--gold-light))] transition-colors text-sm"
+                className="mt-3 block text-[hsl(var(--gold-text))] hover:opacity-90 transition-opacity text-sm"
               >
                 {urlPreview} →
               </a>
@@ -102,7 +102,7 @@ function WheatIcon({ isHovered }: { isHovered: boolean }) {
         y1="20"
         x2="8"
         y2="2"
-        stroke="hsl(var(--gold-base))"
+        stroke="hsl(var(--gold-text))"
         strokeWidth="1.5"
         strokeLinecap="round"
       />

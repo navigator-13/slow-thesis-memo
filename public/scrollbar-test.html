@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { height: 3000px; margin: 0; padding: 20px; font-family: monospace; }
+    
+    /* Test 1: 15% transparent ends */
+    .test1 { position: fixed; top: 0; left: 0; width: 200px; height: 100vh; overflow-y: scroll; }
+    .test1::-webkit-scrollbar { width: 3px; }
+    .test1::-webkit-scrollbar-track { background: #333; }
+    .test1::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg,
+        transparent 0%,
+        transparent 15%,
+        #9B7E46 15%,
+        #D4AF37 50%,
+        #E5C896 85%,
+        transparent 85%,
+        transparent 100%
+      );
+      border-radius: 0;
+      clip-path: polygon(50% 0%, 100% 12%, 100% 88%, 50% 100%, 0% 88%, 0% 12%);
+    }
+    
+    /* Test 2: 5% transparent ends */
+    .test2 { position: fixed; top: 0; left: 250px; width: 200px; height: 100vh; overflow-y: scroll; }
+    .test2::-webkit-scrollbar { width: 3px; }
+    .test2::-webkit-scrollbar-track { background: #333; }
+    .test2::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg,
+        transparent 0%,
+        transparent 5%,
+        #9B7E46 5%,
+        #D4AF37 50%,
+        #E5C896 95%,
+        transparent 95%,
+        transparent 100%
+      );
+      border-radius: 0;
+      clip-path: polygon(50% 0%, 100% 12%, 100% 88%, 50% 100%, 0% 88%, 0% 12%);
+    }
+    
+    /* Test 3: NO transparent, just gradient */
+    .test3 { position: fixed; top: 0; left: 500px; width: 200px; height: 100vh; overflow-y: scroll; }
+    .test3::-webkit-scrollbar { width: 3px; }
+    .test3::-webkit-scrollbar-track { background: #333; }
+    .test3::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #9B7E46 0%, #D4AF37 50%, #E5C896 100%);
+      border-radius: 0;
+      clip-path: polygon(50% 0%, 100% 12%, 100% 88%, 50% 100%, 0% 88%, 0% 12%);
+    }
+    
+    /* Test 4: Aggressive clip-path (25% cut) */
+    .test4 { position: fixed; top: 0; left: 750px; width: 200px; height: 100vh; overflow-y: scroll; }
+    .test4::-webkit-scrollbar { width: 3px; }
+    .test4::-webkit-scrollbar-track { background: #333; }
+    .test4::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #9B7E46 0%, #D4AF37 50%, #E5C896 100%);
+      border-radius: 0;
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    }
+    
+    /* Test 5: Very aggressive clip-path (35% cut) */
+    .test5 { position: fixed; top: 0; left: 1000px; width: 200px; height: 100vh; overflow-y: scroll; }
+    .test5::-webkit-scrollbar { width: 3px; }
+    .test5::-webkit-scrollbar-track { background: #333; }
+    .test5::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #9B7E46 0%, #D4AF37 50%, #E5C896 100%);
+      border-radius: 0;
+      clip-path: polygon(50% 0%, 100% 35%, 100% 65%, 50% 100%, 0% 65%, 0% 35%);
+    }
+    
+    /* Test 6: Opacity fade (rgba) - "invisible" at ends but technically there */
+    .test6 { position: fixed; top: 0; left: 1250px; width: 200px; height: 100vh; overflow-y: scroll; }
+    .test6::-webkit-scrollbar { width: 3px; }
+    .test6::-webkit-scrollbar-track { background: #333; }
+    .test6::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg,
+        rgba(155, 126, 70, 0) 0%,
+        rgba(155, 126, 70, 0.3) 10%,
+        rgba(155, 126, 70, 1) 20%,
+        rgba(212, 175, 55, 1) 50%,
+        rgba(229, 200, 150, 1) 80%,
+        rgba(229, 200, 150, 0.3) 90%,
+        rgba(229, 200, 150, 0) 100%
+      );
+      border-radius: 0;
+      clip-path: polygon(50% 0%, 100% 12%, 100% 88%, 50% 100%, 0% 88%, 0% 12%);
+    }
+    
+    /* Test 7: More aggressive opacity fade */
+    .test7 { position: fixed; top: 0; left: 1500px; width: 200px; height: 100vh; overflow-y: scroll; }
+    .test7::-webkit-scrollbar { width: 3px; }
+    .test7::-webkit-scrollbar-track { background: #333; }
+    .test7::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg,
+        rgba(155, 126, 70, 0) 0%,
+        rgba(155, 126, 70, 0.1) 15%,
+        rgba(155, 126, 70, 1) 25%,
+        rgba(212, 175, 55, 1) 50%,
+        rgba(229, 200, 150, 1) 75%,
+        rgba(229, 200, 150, 0.1) 85%,
+        rgba(229, 200, 150, 0) 100%
+      );
+      border-radius: 0;
+      clip-path: polygon(50% 0%, 100% 12%, 100% 88%, 50% 100%, 0% 88%, 0% 12%);
+    }
+  </style>
+  <script>
+    function log(test, msg, data) {
+      fetch('http://127.0.0.1:7243/ingest/e18a18d9-23b4-4803-92dc-336306eb9e2d', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          location: `scrollbar-test.html:${test}`,
+          message: msg,
+          data: data,
+          timestamp: Date.now(),
+          sessionId: 'debug-session',
+          runId: 'css-test',
+          hypothesisId: 'I'
+        })
+      }).catch(() => {});
+    }
+    
+    window.addEventListener('DOMContentLoaded', () => {
+      ['test1', 'test2', 'test3', 'test4', 'test5', 'test6', 'test7'].forEach(id => {
+        const el = document.querySelector(`.${id}`);
+        el.addEventListener('scroll', () => {
+          log(id, 'Scroll event', {
+            scrollTop: el.scrollTop,
+            scrollHeight: el.scrollHeight,
+            clientHeight: el.clientHeight,
+            atTop: el.scrollTop === 0,
+            atBottom: el.scrollTop + el.clientHeight >= el.scrollHeight - 1
+          });
+        });
+      });
+      log('init', 'Tests loaded with opacity gradients', {});
+    });
+  </script>
+</head>
+<body>
+  <div style="position: fixed; top: 0; left: 1800px; padding: 20px; background: white; width: 300px;">
+    <h3>Scrollbar Tests</h3>
+    <p><strong>Test 3:</strong> Full opacity, baseline</p>
+    <p><strong>Test 4:</strong> 25% clip (same as 3)</p>
+    <p><strong>Test 5:</strong> 35% clip (same as 3)</p>
+    <p><strong>Test 6:</strong> Opacity fade 10-90%</p>
+    <p><strong>Test 7:</strong> Opacity fade 15-85%</p>
+    <p><em>Tests 6&7 use rgba() to fade edges to invisible while technically reaching them.</em></p>
+  </div>
+  
+  <div class="test1">
+    <div style="height: 2000px; padding: 20px; background: #111; color: white;">
+      <h2>Test 1</h2>
+    </div>
+  </div>
+  
+  <div class="test2">
+    <div style="height: 2000px; padding: 20px; background: #111; color: white;">
+      <h2>Test 2</h2>
+    </div>
+  </div>
+  
+  <div class="test3">
+    <div style="height: 2000px; padding: 20px; background: #111; color: white;">
+      <h2>Test 3</h2>
+    </div>
+  </div>
+  
+  <div class="test4">
+    <div style="height: 2000px; padding: 20px; background: #111; color: white;">
+      <h2>Test 4</h2>
+    </div>
+  </div>
+  
+  <div class="test5">
+    <div style="height: 2000px; padding: 20px; background: #111; color: white;">
+      <h2>Test 5</h2>
+    </div>
+  </div>
+  
+  <div class="test6">
+    <div style="height: 2000px; padding: 20px; background: #111; color: white;">
+      <h2>Test 6: Opacity</h2>
+    </div>
+  </div>
+  
+  <div class="test7">
+    <div style="height: 2000px; padding: 20px; background: #111; color: white;">
+      <h2>Test 7: Opacity</h2>
+    </div>
+  </div>
+</body>
+</html>

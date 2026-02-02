@@ -1,6 +1,7 @@
 'use client';
 
 import { ThemeToggle } from './ThemeToggle';
+import { LogoLink } from './LogoLink';
 
 interface Section {
   id: string;
@@ -18,12 +19,28 @@ interface BottomBarProps {
 
 export function BottomBar({ sections, activeSection, onSectionChange, theme, onThemeToggle }: BottomBarProps) {
   return (
-    <div className="bg-[hsl(var(--sidebar-bg))] border-t border-[hsl(var(--gold-dark))]/20">
+    <div
+      className="
+        bg-[hsl(var(--sidebar-bg))] w-full
+        relative
+        before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-px
+        before:bg-gradient-to-r before:from-transparent before:via-[hsl(var(--gold-text))] before:to-transparent
+        before:pointer-events-none
+      "
+    >
       {/* Logo and Theme Toggle Row */}
       <div className="flex items-center justify-between px-4 py-2 border-b border-[hsl(var(--gold-dark))]/10">
         <div className="flex items-center gap-2">
-          <MiniSailboat />
-          <span className="text-sm text-[hsl(var(--gold-base))]">Table of Contents</span>
+          <LogoLink
+            theme={theme}
+            sizePx={36}
+          />
+          <div className="text-[11px] font-bold tracking-wider whitespace-nowrap" style={{ fontFamily: "'Oswald', 'Bebas Neue', 'Arial Narrow', sans-serif" }}>
+            <span className="text-[hsl(var(--gold-text))]">FOUNDATION </span>
+            <span className="text-white">+ </span>
+            <span className="text-[hsl(var(--gold-text))]">CREATOR FUND SYN</span>
+            <span className="text-white">(THESIS)</span>
+          </div>
         </div>
         <ThemeToggle theme={theme} onToggle={onThemeToggle} />
       </div>
@@ -38,8 +55,8 @@ export function BottomBar({ sections, activeSection, onSectionChange, theme, onT
               className={`
                 px-4 py-2 rounded-lg whitespace-nowrap text-sm transition-all duration-300
                 ${activeSection === section.id
-                  ? 'bg-gradient-to-r from-[hsl(var(--gold-dark))]/30 to-transparent text-[hsl(var(--gold-base))]'
-                  : 'text-gray-400 hover:text-[hsl(var(--gold-base))]'
+                  ? 'bg-gradient-to-r from-[hsl(var(--gold-dark))]/30 to-transparent text-[hsl(var(--gold-text))]'
+                  : 'text-gray-400 hover:text-[hsl(var(--gold-text))]'
                 }
               `}
             >
@@ -50,25 +67,5 @@ export function BottomBar({ sections, activeSection, onSectionChange, theme, onT
         </div>
       </div>
     </div>
-  );
-}
-
-function MiniSailboat() {
-  return (
-    <svg width="24" height="28" viewBox="0 0 60 72" fill="none">
-      <path
-        d="M30 10L10 50H50L30 10Z"
-        fill="url(#mini-sail)"
-        stroke="hsl(var(--gold-base))"
-        strokeWidth="2"
-      />
-      <line x1="30" y1="10" x2="30" y2="62" stroke="hsl(var(--gold-base))" strokeWidth="2"/>
-      <defs>
-        <linearGradient id="mini-sail" x1="30" y1="10" x2="30" y2="50">
-          <stop stopColor="hsl(var(--gold-light))" stopOpacity="0.4"/>
-          <stop offset="1" stopColor="hsl(var(--gold-dark))" stopOpacity="0.6"/>
-        </linearGradient>
-      </defs>
-    </svg>
   );
 }

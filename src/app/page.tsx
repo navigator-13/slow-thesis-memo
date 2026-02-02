@@ -43,7 +43,7 @@ export default function Home() {
 
         {/* Main Content */}
         <main className="flex-1 relative md:ml-64">
-          <div className="bg-topographic min-h-screen pb-20 md:pb-0">
+          <div className={`${theme === 'dark' ? 'bg-topographic' : 'bg-topographic-light'} min-h-screen pb-20 md:pb-0`}>
             <SectionContent
               sections={sections}
               activeSection={activeSection}
@@ -53,7 +53,7 @@ export default function Home() {
         </main>
 
         {/* Mobile Bottom Bar */}
-        <div className="md:hidden fixed bottom-0 left-0 right-0 z-50">
+        <div className="md:hidden fixed bottom-0 left-0 right-0 w-screen z-50">
           <BottomBar
             sections={sections}
             activeSection={activeSection}

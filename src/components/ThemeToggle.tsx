@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Moon, Sun } from 'lucide-react';
 
 interface ThemeToggleProps {
   theme: 'light' | 'dark';
@@ -9,78 +10,53 @@ interface ThemeToggleProps {
 
 export function ThemeToggle({ theme, onToggle }: ThemeToggleProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const isDark = theme === 'dark';
 
   return (
     <button
       onClick={onToggle}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative w-12 h-12 flex items-center justify-center transition-all duration-300"
+      className="
+        relative w-12 h-12 rounded-full flex items-center justify-center
+        transition-colors duration-300
+        border border-white/10
+      "
       aria-label="Toggle theme"
     >
-      {theme === 'dark' ? (
-        <SunIcon isHovered={isHovered} />
-      ) : (
-        <MoonIcon isHovered={isHovered} />
-      )}
+      <div
+        className={`
+          flex items-center justify-center
+          transition-transform duration-700 ease-in-out
+          ${isHovered ? (isDark ? 'rotate-[360deg]' : 'rotate-180') : 'rotate-0'}
+        `}
+        style={{
+          transformOrigin: 'center',
+          transformBox: 'fill-box',
+        }}
+      >
+        {isDark ? (
+          <Sun
+            className="w-6 h-6"
+            style={{
+              stroke: isHovered ? 'hsl(var(--gold-text))' : 'hsl(var(--sidebar-text))',
+              filter: isHovered ? 'drop-shadow(0 0 6px rgba(201,169,97,0.55))' : 'none',
+              transformOrigin: 'center',
+              transformBox: 'fill-box',
+            }}
+          />
+        ) : (
+          <Moon
+            className="w-6 h-6"
+            style={{
+              stroke: isHovered ? 'hsl(var(--gold-text))' : 'hsl(var(--sidebar-text))',
+              filter: isHovered ? 'drop-shadow(0 0 6px rgba(201,169,97,0.55))' : 'none',
+              transformOrigin: 'center',
+              transformBox: 'fill-box',
+            }}
+          />
+        )}
+      </div>
     </button>
-  );
-}
-
-function SunIcon({ isHovered }: { isHovered: boolean }) {
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      className="transition-all duration-500"
-      style={{
-        filter: isHovered ? 'drop-shadow(0 0 8px hsl(var(--gold-base)))' : 'none',
-      }}
-    >
-      <circle
-        cx="12"
-        cy="12"
-        r="5"
-        fill={isHovered ? 'hsl(var(--gold-base))' : 'hsl(var(--gold-dark))'}
-        className="transition-all duration-300"
-      />
-      {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
-        <line
-          key={i}
-          x1="12"
-          y1="12"
-          x2={12 + Math.cos((angle * Math.PI) / 180) * 9}
-          y2={12 + Math.sin((angle * Math.PI) / 180) * 9}
-          stroke={isHovered ? 'hsl(var(--gold-base))' : 'hsl(var(--gold-dark))'}
-          strokeWidth="2"
-          strokeLinecap="round"
-          className="transition-all duration-300"
-        />
-      ))}
-    </svg>
-  );
-}
-
-function MoonIcon({ isHovered }: { isHovered: boolean }) {
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      className="transition-all duration-500"
-      style={{
-        transform: isHovered ? 'rotate(180deg)' : 'rotate(0deg)',
-        filter: isHovered ? 'drop-shadow(0 0 8px hsl(var(--gold-base)))' : 'none',
-      }}
-    >
-      <path
-        d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-        fill={isHovered ? 'hsl(var(--gold-base))' : 'hsl(var(--gold-dark))'}
-        className="transition-all duration-300"
-      />
-    </svg>
   );
 }

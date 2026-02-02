@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Oswald:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,17 +6,20 @@
 
 @layer base {
   :root {
-    /* Light mode - parchment/wheat */
+    /* Light (daytime) mode - parchment/wheat */
     --background: 44 31% 95%; /* #f5f1e8 */
     --foreground: 0 0% 20%;
-    --sidebar-bg: 220 20% 16%; /* Transitions to content bg in light mode */
+    --sidebar-bg: 220 20% 16%; /* Sidebar stays dark in light mode */
     --content-bg: 44 31% 95%;
 
-    /* Gold palette - warm amber-bronze tones */
-    --gold-dark: 38 37% 44%; /* #9B7E46 */
-    --gold-base: 43 60% 53%; /* #D4AF37 */
-    --gold-light: 44 79% 85%; /* #F4E4C1 */
-    --gold-accent: 43 77% 45%; /* #B8860B */
+    /* Gold palette */
+    --gold-text: 42 49% 58%; /* #C9A961 (all gold text) */
+    --gold-dark: 40 38% 44%; /* #9B7E46 */
+    --gold-base: 46 65% 52%; /* #D4AF37 */
+    --gold-light: 38 60% 74%; /* #E5C896 */
+
+    /* Sidebar text */
+    --sidebar-text: 221 32% 65%; /* #8B9DC3 */
 
     --popover: 44 31% 95%;
     --popover-foreground: 0 0% 15%;
@@ -25,11 +28,11 @@
   }
 
   .dark {
-    /* Dark mode - navy backgrounds */
-    --background: 220 20% 16%; /* #2a2d3e - main content bg */
-    --foreground: 0 0% 90%;
-    --sidebar-bg: 220 25% 8%; /* #14151f - sidebar much darker */
-    --content-bg: 220 20% 16%;
+    /* Dark (night) mode */
+    --background: 224 41% 7%; /* #0B0F1A */
+    --foreground: 0 0% 92%;
+    --sidebar-bg: 224 41% 7%; /* #0B0F1A */
+    --content-bg: 224 41% 7%; /* #0B0F1A */
 
     --popover: 220 25% 10%;
     --popover-foreground: 0 0% 95%;
@@ -54,7 +57,8 @@
 
   /* Custom scrollbar */
   ::-webkit-scrollbar {
-    width: 4px;
+    width: 3px;
+    height: 3px;
   }
 
   ::-webkit-scrollbar-track {
@@ -62,16 +66,37 @@
   }
 
   ::-webkit-scrollbar-thumb {
+    /* Opacity fade: visible gold in middle ~50%, fades to invisible at ends */
     background: linear-gradient(180deg,
-      hsl(var(--gold-dark)) 0%,
-      hsl(var(--gold-base)) 50%,
-      hsl(var(--gold-light)) 100%
+      rgba(155, 126, 70, 0) 0%,
+      rgba(155, 126, 70, 0.1) 15%,
+      rgba(155, 126, 70, 1) 25%,
+      rgba(212, 175, 55, 1) 50%,
+      rgba(229, 200, 150, 1) 75%,
+      rgba(229, 200, 150, 0.1) 85%,
+      rgba(229, 200, 150, 0) 100%
     );
-    border-radius: 2px;
+    border-radius: 0;
+    clip-path: polygon(
+      50% 0%,
+      100% 12%,
+      100% 88%,
+      50% 100%,
+      0% 88%,
+      0% 12%
+    );
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--gold-base));
+    /* On hover: similar opacity fade with gold color */
+    background: linear-gradient(180deg,
+      rgba(201, 169, 97, 0) 0%,
+      rgba(201, 169, 97, 0.1) 15%,
+      rgba(201, 169, 97, 1) 25%,
+      rgba(201, 169, 97, 1) 75%,
+      rgba(201, 169, 97, 0.1) 85%,
+      rgba(201, 169, 97, 0) 100%
+    );
   }
 }
 

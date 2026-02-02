@@ -7,7 +7,7 @@ export function TwinklingStars() {
 
   useEffect(() => {
     // Generate sparse random stars
-    const generatedStars = Array.from({ length: 30 }, () => ({
+    const generatedStars = Array.from({ length: 15 }, () => ({
       x: Math.random() * 100,
       y: Math.random() * 100,
       delay: Math.random() * 3,

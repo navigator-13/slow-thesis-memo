@@ -46,10 +46,7 @@ export function SectionContent({ sections, activeSection, onSectionChange }: Sec
         className="transition-opacity duration-1000"
         style={{ opacity: fadeIn ? 1 : 0 }}
       >
-        <h1 className="text-4xl md:text-5xl lg:text-6xl mb-8 text-[hsl(var(--gold-base))]">
-          {currentSection?.number && (
-            <span className="italic mr-3">{currentSection.number}</span>
-          )}
+        <h1 className="text-4xl md:text-5xl lg:text-6xl mb-8 text-black dark:text-white uppercase tracking-[0.18em] leading-tight">
           {currentSection?.title}
         </h1>
 
@@ -61,16 +58,16 @@ export function SectionContent({ sections, activeSection, onSectionChange }: Sec
       <div className="prose prose-lg max-w-none">
         {/* Replace with your actual content - see ExampleSection.tsx for structure guide */}
 
-        <p className="text-gray-300 dark:text-gray-300 leading-relaxed mb-6 text-lg">
-          This is where your essay content for <em className="text-[hsl(var(--gold-base))]">{currentSection?.title}</em> will appear.
+        <p className="text-gray-800 dark:text-gray-300 leading-relaxed mb-6 text-lg">
+          This is where your essay content for <em className="text-[hsl(var(--gold-text))]">{currentSection?.title}</em> will appear.
           Replace this section with your actual writing. See{' '}
-          <code className="text-[hsl(var(--gold-base))] bg-black/20 px-2 py-1 rounded text-sm">
+          <code className="text-[hsl(var(--gold-text))] bg-black/10 dark:bg-black/20 px-2 py-1 rounded text-sm">
             src/components/sections/ExampleSection.tsx
           </code>
           {' '}for a complete content structure guide.
         </p>
 
-        <p className="text-gray-300 dark:text-gray-300 leading-relaxed mb-6">
+        <p className="text-gray-800 dark:text-gray-300 leading-relaxed mb-6">
           You can add inline annotations{' '}
           <WheatPopup content="Click the wheat icon to see this popup! You can add text, images, or URL previews here for additional context." />
           {' '}throughout your text. Hover over the wheat icon to see the wiggle animation, then click to open the popup.
@@ -78,11 +75,11 @@ export function SectionContent({ sections, activeSection, onSectionChange }: Sec
 
         <SectionDivider />
 
-        <h2 className="text-2xl md:text-3xl text-[hsl(var(--gold-base))] italic mb-6 mt-8">
+        <h2 className="text-2xl md:text-3xl text-[hsl(var(--gold-text))] italic mb-6 mt-8">
           Platform Features
         </h2>
 
-        <ul className="list-disc list-inside text-gray-300 dark:text-gray-300 space-y-3 mb-6 ml-4">
+        <ul className="list-disc list-inside text-gray-800 dark:text-gray-300 space-y-3 mb-6 ml-4">
           <li>Section-based navigation with smooth fade-in transitions</li>
           <li>Interactive wheat icon popups for annotations and side notes</li>
           <li>Elegant section dividers with animated pulsing golden dots</li>
@@ -92,7 +89,7 @@ export function SectionContent({ sections, activeSection, onSectionChange }: Sec
           <li>Warm amber-gold color palette matching finaloffshoring.com</li>
         </ul>
 
-        <p className="text-gray-300 dark:text-gray-300 leading-relaxed mb-6">
+        <p className="text-gray-800 dark:text-gray-300 leading-relaxed mb-6">
           The EB Garamond font provides an elegant, literary aesthetic perfect for long-form essays and memos.
           All animations and interactions are pre-configured and ready to use.
         </p>
@@ -101,20 +98,32 @@ export function SectionContent({ sections, activeSection, onSectionChange }: Sec
       {/* Next Section Button */}
       {nextSection && (
         <div className="mt-16 pt-8 border-t border-[hsl(var(--gold-dark))]/20">
-          <div className="text-center">
-            <p className="text-sm text-gray-400 mb-4 tracking-wider uppercase">Next Section</p>
+          <div className="flex justify-end">
+            <div className="text-right">
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 tracking-wider uppercase">Next Section</p>
             <button
               onClick={() => onSectionChange(nextSection.id)}
-              className="group inline-flex items-center gap-3 text-[hsl(var(--gold-base))] hover:text-[hsl(var(--gold-light))] transition-all duration-300"
+              className="group inline-flex items-center gap-3 transition-colors duration-300"
             >
-              <span className="text-xl md:text-2xl italic">
-                {nextSection.number && `${nextSection.number} `}
+              <span className="relative text-xl md:text-2xl italic text-[hsl(var(--gold-text))] group-hover:text-[hsl(var(--gold-light))] transition-colors duration-300">
+                <span
+                  className="
+                    relative
+                    after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full
+                    after:bg-[hsl(var(--gold-text))]
+                    after:origin-right after:scale-x-0
+                    after:transition-transform after:duration-300
+                    group-hover:after:origin-left group-hover:after:scale-x-100
+                  "
+                >
                 {nextSection.title}
+                </span>
               </span>
-              <span className="transform group-hover:translate-x-2 transition-transform duration-300 text-2xl">
+              <span className="opacity-0 group-hover:opacity-100 transform group-hover:translate-x-2 transition-all duration-300 text-2xl text-[hsl(var(--gold-text))] group-hover:text-[hsl(var(--gold-light))]">
                 →
               </span>
             </button>
+          </div>
           </div>
         </div>
       )}
