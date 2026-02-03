@@ -27,7 +27,7 @@ export function ExampleSection() {
       <SectionDivider />
 
       {/* Sub-heading (optional) */}
-      <h2 className="text-2xl md:text-3xl text-[hsl(var(--gold-text))] italic mb-6 mt-8">
+      <h2 className="text-2xl md:text-3xl italic mb-6 mt-8 gold-text-base">
         A Subsection Heading
       </h2>
 

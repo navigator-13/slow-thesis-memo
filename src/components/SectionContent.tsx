@@ -70,17 +70,17 @@ export function SectionContent({ sections, activeSection, onSectionChange }: Sec
           remarkPlugins={[remarkGfm]}
           components={{
             h2: ({ children }) => (
-              <h2 className="text-2xl md:text-3xl text-[hsl(var(--gold-text))] italic mb-6 mt-10">
+              <h2 className="text-2xl md:text-3xl italic mb-6 mt-10 gold-text-base">
                 {children}
               </h2>
             ),
             h3: ({ children }) => (
-              <h3 className="text-xl md:text-2xl text-[hsl(var(--gold-text))] italic mb-4 mt-8">
+              <h3 className="text-xl md:text-2xl italic mb-4 mt-8 gold-text-base">
                 {children}
               </h3>
             ),
             h4: ({ children }) => (
-              <h4 className="text-lg md:text-xl text-[hsl(var(--gold-text))] italic mb-3 mt-6">
+              <h4 className="text-lg md:text-xl italic mb-3 mt-6 gold-text-base">
                 {children}
               </h4>
             ),
@@ -97,14 +97,14 @@ export function SectionContent({ sections, activeSection, onSectionChange }: Sec
             a: ({ children, href }) => (
               <a
                 href={href}
-                className="text-[hsl(var(--gold-text))] hover:text-[hsl(var(--gold-light))] transition-colors duration-200 underline underline-offset-4"
+                className="gold-text-hoverable transition-colors duration-200 underline underline-offset-4"
               >
                 {children}
               </a>
             ),
             hr: () => <hr className="my-10 border-[hsl(var(--gold-dark))]/20" />,
-            strong: ({ children }) => <strong className="text-[hsl(var(--gold-text))]">{children}</strong>,
-            em: ({ children }) => <em className="italic text-[hsl(var(--gold-text))]">{children}</em>,
+            strong: ({ children }) => <strong className="gold-text-base">{children}</strong>,
+            em: ({ children }) => <em className="italic gold-text-base">{children}</em>,
             ul: ({ children }) => <ul className="list-disc list-inside space-y-3 mb-6 ml-4">{children}</ul>,
             ol: ({ children }) => <ol className="list-decimal list-inside space-y-3 mb-6 ml-4">{children}</ol>,
             blockquote: ({ children }) => (
@@ -128,12 +128,13 @@ export function SectionContent({ sections, activeSection, onSectionChange }: Sec
                 onClick={() => onSectionChange(nextSection.id)}
                 className="group inline-flex items-center gap-3 transition-colors duration-300"
               >
-                <span className="relative text-xl md:text-2xl italic text-[hsl(var(--gold-text))] group-hover:text-[hsl(var(--gold-light))] transition-colors duration-300">
+                <span className="relative text-xl md:text-2xl italic transition-colors duration-300">
                   <span
                     className="
                       relative
+                      gold-text-hoverable
                       after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full
-                      after:bg-[hsl(var(--gold-text))]
+                      after:bg-[hsl(var(--gold-dark))]
                       after:origin-right after:scale-x-0
                       after:transition-transform after:duration-300
                       group-hover:after:origin-left group-hover:after:scale-x-100
@@ -142,7 +143,7 @@ export function SectionContent({ sections, activeSection, onSectionChange }: Sec
                     {nextSection.title}
                   </span>
                 </span>
-                <span className="opacity-0 group-hover:opacity-100 transform group-hover:translate-x-2 transition-all duration-300 text-2xl text-[hsl(var(--gold-text))] group-hover:text-[hsl(var(--gold-light))]">
+                <span className="opacity-0 group-hover:opacity-100 transform group-hover:translate-x-2 transition-all duration-300 text-2xl gold-text-hoverable">
                   →
                 </span>
               </button>

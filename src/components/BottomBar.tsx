@@ -40,9 +40,9 @@ export function BottomBar({ sections, activeSection, onSectionChange, theme, onT
             sizePx={36}
           />
           <div className="text-[11px] font-bold tracking-wider whitespace-nowrap" style={{ fontFamily: "'Oswald', 'Bebas Neue', 'Arial Narrow', sans-serif" }}>
-            <span className="text-[hsl(var(--gold-text))]">FOUNDATION </span>
+            <span className="gold-text-base">FOUNDATION </span>
             <span className="text-white">+ </span>
-            <span className="text-[hsl(var(--gold-text))]">CREATOR FUND SYN</span>
+            <span className="gold-text-base">CREATOR FUND SYN</span>
             <span className="text-white">(THESIS)</span>
           </div>
         </div>
@@ -68,8 +68,8 @@ export function BottomBar({ sections, activeSection, onSectionChange, theme, onT
               className={`
                 px-4 py-2 rounded-lg whitespace-nowrap text-sm transition-all duration-300
                 ${activeSection === section.id
-                  ? 'bg-gradient-to-r from-[hsl(var(--gold-dark))]/30 to-transparent text-[hsl(var(--gold-text))]'
-                  : 'text-gray-400 hover:text-[hsl(var(--gold-text))]'
+                  ? 'bg-gradient-to-r from-[hsl(var(--gold-dark))]/30 to-transparent gold-text-hover'
+                  : 'gold-text-hoverable'
                 }
               `}
             >

@@ -32,7 +32,7 @@ export function Sidebar({ sections, activeSection, onSectionChange, theme, onThe
           theme={theme}
           sizePx={132}
         />
-        <div className="mt-1 text-center text-sm font-bold tracking-[0.2em] leading-relaxed" style={{ fontFamily: "'Oswald', 'Bebas Neue', 'Arial Narrow', sans-serif", color: '#D4A650' }}>
+        <div className="mt-1 text-center text-sm font-bold tracking-[0.2em] leading-relaxed gold-text-base" style={{ fontFamily: "'Oswald', 'Bebas Neue', 'Arial Narrow', sans-serif" }}>
           <div>FOUNDATION</div>
           <div className="text-white my-0.5">+</div>
           <div>CREATOR FUND</div>
@@ -45,7 +45,7 @@ export function Sidebar({ sections, activeSection, onSectionChange, theme, onThe
 
       {/* Navigation - Scrollable middle section */}
       <nav className="flex-1 overflow-y-auto px-4 space-y-1 scrollbar-thin relative z-10">
-        <div className="px-4 pt-1 pb-2 text-[hsl(var(--gold-text))] text-xs font-bold tracking-[0.28em] uppercase">
+        <div className="px-4 pt-1 pb-2 text-xs font-bold tracking-[0.28em] uppercase gold-text-base">
           Table of Contents
         </div>
         {sections.map((section) => (
@@ -62,15 +62,15 @@ export function Sidebar({ sections, activeSection, onSectionChange, theme, onThe
           >
             <div className="flex items-start gap-2">
               {section.number && (
-                <span className="text-sm font-medium italic flex-shrink-0 text-[hsl(var(--gold-text))]">
+                <span className="text-sm font-medium italic flex-shrink-0 gold-text-base">
                   {section.number}
                 </span>
               )}
               <span className={`
                 text-sm transition-colors duration-300
                 ${activeSection === section.id
-                  ? 'text-[hsl(var(--gold-text))]'
-                  : 'text-[hsl(var(--sidebar-text))] group-hover:text-[hsl(var(--gold-text))]'
+                  ? 'gold-text-on-hover is-active'
+                  : 'text-[hsl(var(--sidebar-text))] gold-text-on-hover'
                 }
               `}>
                 {section.title}

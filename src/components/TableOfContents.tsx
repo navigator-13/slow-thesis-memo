@@ -26,7 +26,7 @@ export function TableOfContents({ sections, onSectionChange }: TableOfContentsPr
       </h1>
 
       {/* Decorative underline */}
-      <div className="w-24 h-0.5 mb-12 bg-gradient-to-r from-[hsl(var(--gold-text))] to-transparent" />
+      <div className="w-24 h-0.5 mb-12 bg-gradient-to-r from-[hsl(var(--gold-dark))] to-transparent" />
 
       {/* Author and Date */}
       <div className="mb-8 text-gray-700 dark:text-gray-300 italic">
@@ -37,7 +37,7 @@ export function TableOfContents({ sections, onSectionChange }: TableOfContentsPr
       </div>
 
       <p className="text-gray-600 dark:text-gray-400 mb-12 italic">
-        For additional notes, <span className="text-[hsl(var(--gold-text))] cursor-pointer hover:opacity-90 transition-opacity">click here</span>.
+        For additional notes, <span className="gold-text-hoverable cursor-pointer transition-opacity">click here</span>.
       </p>
 
       {/* TOC Items */}
@@ -54,7 +54,7 @@ export function TableOfContents({ sections, onSectionChange }: TableOfContentsPr
             <h3 className={`
               text-2xl md:text-3xl mb-3 transition-all duration-300
               ${hoveredId === section.id
-                ? 'text-[hsl(var(--gold-text))]'
+                ? 'gold-text-hover'
                 : 'text-gray-900 dark:text-gray-300'
               }
             `}>
@@ -98,12 +98,12 @@ export function TableOfContents({ sections, onSectionChange }: TableOfContentsPr
               onClick={() => contentSections[0] && onSectionChange(contentSections[0].id)}
               className="group inline-flex items-center gap-3 transition-colors duration-300"
             >
-              <span className="relative text-2xl italic text-[hsl(var(--gold-text))] group-hover:text-[hsl(var(--gold-light))] transition-colors duration-300">
+              <span className="relative text-2xl italic gold-text-hoverable transition-colors duration-300">
                 <span
                   className="
                     relative
                     after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full
-                    after:bg-[hsl(var(--gold-text))]
+                    after:bg-[hsl(var(--gold-dark))]
                     after:origin-right after:scale-x-0
                     after:transition-transform after:duration-300
                     group-hover:after:origin-left group-hover:after:scale-x-100
@@ -112,7 +112,7 @@ export function TableOfContents({ sections, onSectionChange }: TableOfContentsPr
                   {contentSections[0]?.title}
                 </span>
               </span>
-              <span className="opacity-0 group-hover:opacity-100 transform group-hover:translate-x-2 transition-all duration-300 text-2xl text-[hsl(var(--gold-text))] group-hover:text-[hsl(var(--gold-light))]">
+              <span className="opacity-0 group-hover:opacity-100 transform group-hover:translate-x-2 transition-all duration-300 text-2xl gold-text-hoverable">
                 →
               </span>
             </button>
