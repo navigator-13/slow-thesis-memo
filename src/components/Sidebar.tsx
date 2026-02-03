@@ -1,7 +1,6 @@
 'use client';
 
 import { ThemeToggle } from './ThemeToggle';
-import { TwinklingStars } from './TwinklingStars';
 import { LogoLink } from './LogoLink';
 
 interface Section {
@@ -25,16 +24,8 @@ export function Sidebar({ sections, activeSection, onSectionChange, theme, onThe
         fixed left-0 top-0 h-screen w-64 bg-[hsl(var(--sidebar-bg))] z-50 flex flex-col
         before:content-[''] before:absolute before:inset-0 before:pointer-events-none before:z-0
         before:bg-gradient-to-r before:from-black before:to-[hsl(var(--sidebar-bg))]
-        after:content-[''] after:absolute after:top-0 after:right-0 after:h-full after:w-px after:z-20
-        after:bg-gradient-to-b after:from-transparent after:via-[hsl(var(--gold-text))] after:to-transparent
-        after:pointer-events-none
       "
     >
-      {/* Twinkling Stars Background - covers logo and nav, but not theme toggle */}
-      <div className="absolute inset-0 pointer-events-none">
-        <TwinklingStars />
-      </div>
-
       {/* Logo - Fixed at top */}
       <div className="flex-shrink-0 flex flex-col justify-center items-center py-8 px-6 relative z-10">
         <LogoLink
@@ -54,6 +45,9 @@ export function Sidebar({ sections, activeSection, onSectionChange, theme, onThe
 
       {/* Navigation - Scrollable middle section */}
       <nav className="flex-1 overflow-y-auto px-4 space-y-1 scrollbar-thin relative z-10">
+        <div className="px-4 pt-1 pb-2 text-[hsl(var(--gold-text))] text-xs font-bold tracking-[0.28em] uppercase">
+          Table of Contents
+        </div>
         {sections.map((section) => (
           <button
             key={section.id}

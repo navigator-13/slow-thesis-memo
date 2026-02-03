@@ -15,9 +15,11 @@ interface BottomBarProps {
   onSectionChange: (id: string) => void;
   theme: 'light' | 'dark';
   onThemeToggle: () => void;
+  showTexture: boolean;
+  onTextureToggle: () => void;
 }
 
-export function BottomBar({ sections, activeSection, onSectionChange, theme, onThemeToggle }: BottomBarProps) {
+export function BottomBar({ sections, activeSection, onSectionChange, theme, onThemeToggle, showTexture, onTextureToggle }: BottomBarProps) {
   return (
     <div
       className="
@@ -44,7 +46,16 @@ export function BottomBar({ sections, activeSection, onSectionChange, theme, onT
             <span className="text-white">(THESIS)</span>
           </div>
         </div>
-        <ThemeToggle theme={theme} onToggle={onThemeToggle} />
+        <div className="flex items-center gap-2">
+          <button
+            onClick={onTextureToggle}
+            className={`w-9 h-9 flex items-center justify-center rounded-full border border-white/10 bg-black/40 wiggle-hover transition-opacity ${showTexture ? 'opacity-100' : 'opacity-60'}`}
+            aria-label="Toggle contour background"
+          >
+            <img src="/shovel%20icon.png" alt="" className="w-5 h-5 object-contain" />
+          </button>
+          <ThemeToggle theme={theme} onToggle={onThemeToggle} />
+        </div>
       </div>
 
       {/* Scrollable Navigation */}

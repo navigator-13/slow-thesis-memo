@@ -1,14 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { TableOfContents } from './TableOfContents';
-import { SectionDivider } from './SectionDivider';
-import { WheatPopup } from './WheatPopup';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface Section {
   id: string;
   title: string;
   number: string | null;
+  content: string;
 }
 
 interface SectionContentProps {
@@ -31,14 +31,6 @@ export function SectionContent({ sections, activeSection, onSectionChange }: Sec
 
   const currentIndex = sections.findIndex(s => s.id === activeSection);
   const nextSection = currentIndex < sections.length - 1 ? sections[currentIndex + 1] : null;
-
-  if (activeSection === 'table-of-contents') {
-    return (
-      <div className="max-w-4xl mx-auto px-6 md:px-12 py-12 md:py-20">
-        <TableOfContents sections={sections} onSectionChange={onSectionChange} />
-      </div>
-    );
-  }
 
   const currentSection = sections.find(s => s.id === activeSection);
 
@@ -74,43 +66,56 @@ export function SectionContent({ sections, activeSection, onSectionChange }: Sec
 
       {/* Section Content */}
       <div className="prose prose-lg max-w-none">
-        {/* Replace with your actual content - see ExampleSection.tsx for structure guide */}
-
-        <p className="text-gray-800 dark:text-gray-300 leading-relaxed mb-6 text-lg">
-          This is where your essay content for <em className="text-[hsl(var(--gold-text))]">{currentSection?.title}</em> will appear.
-          Replace this section with your actual writing. See{' '}
-          <code className="text-[hsl(var(--gold-text))] bg-black/10 dark:bg-black/20 px-2 py-1 rounded text-sm">
-            src/components/sections/ExampleSection.tsx
-          </code>
-          {' '}for a complete content structure guide.
-        </p>
-
-        <p className="text-gray-800 dark:text-gray-300 leading-relaxed mb-6">
-          You can add inline annotations{' '}
-          <WheatPopup content="Click the wheat icon to see this popup! You can add text, images, or URL previews here for additional context." />
-          {' '}throughout your text. Hover over the wheat icon to see the wiggle animation, then click to open the popup.
-        </p>
-
-        <SectionDivider />
-
-        <h2 className="text-2xl md:text-3xl text-[hsl(var(--gold-text))] italic mb-6 mt-8">
-          Platform Features
-        </h2>
-
-        <ul className="list-disc list-inside text-gray-800 dark:text-gray-300 space-y-3 mb-6 ml-4">
-          <li>Section-based navigation with smooth fade-in transitions</li>
-          <li>Interactive wheat icon popups for annotations and side notes</li>
-          <li>Elegant section dividers with animated pulsing golden dots</li>
-          <li>Day/night reading mode toggle (sun/moon icon at bottom of sidebar)</li>
-          <li>Fully responsive design for mobile and desktop viewing</li>
-          <li>Twinkling stars animation in sidebar background</li>
-          <li>Warm amber-gold color palette matching finaloffshoring.com</li>
-        </ul>
-
-        <p className="text-gray-800 dark:text-gray-300 leading-relaxed mb-6">
-          The EB Garamond font provides an elegant, literary aesthetic perfect for long-form essays and memos.
-          All animations and interactions are pre-configured and ready to use.
-        </p>
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          components={{
+            h2: ({ children }) => (
+              <h2 className="text-2xl md:text-3xl text-[hsl(var(--gold-text))] italic mb-6 mt-10">
+                {children}
+              </h2>
+            ),
+            h3: ({ children }) => (
+              <h3 className="text-xl md:text-2xl text-[hsl(var(--gold-text))] italic mb-4 mt-8">
+                {children}
+              </h3>
+            ),
+            h4: ({ children }) => (
+              <h4 className="text-lg md:text-xl text-[hsl(var(--gold-text))] italic mb-3 mt-6">
+                {children}
+              </h4>
+            ),
+            p: ({ children }) => (
+              <p className="text-gray-800 dark:text-gray-300 leading-relaxed mb-6 text-lg">
+                {children}
+              </p>
+            ),
+            li: ({ children }) => (
+              <li className="text-gray-800 dark:text-gray-300 leading-relaxed">
+                {children}
+              </li>
+            ),
+            a: ({ children, href }) => (
+              <a
+                href={href}
+                className="text-[hsl(var(--gold-text))] hover:text-[hsl(var(--gold-light))] transition-colors duration-200 underline underline-offset-4"
+              >
+                {children}
+              </a>
+            ),
+            hr: () => <hr className="my-10 border-[hsl(var(--gold-dark))]/20" />,
+            strong: ({ children }) => <strong className="text-[hsl(var(--gold-text))]">{children}</strong>,
+            em: ({ children }) => <em className="italic text-[hsl(var(--gold-text))]">{children}</em>,
+            ul: ({ children }) => <ul className="list-disc list-inside space-y-3 mb-6 ml-4">{children}</ul>,
+            ol: ({ children }) => <ol className="list-decimal list-inside space-y-3 mb-6 ml-4">{children}</ol>,
+            blockquote: ({ children }) => (
+              <blockquote className="border-l-2 border-[hsl(var(--gold-dark))] pl-4 text-gray-700 dark:text-gray-300 italic my-6">
+                {children}
+              </blockquote>
+            ),
+          }}
+        >
+          {currentSection?.content ?? ''}
+        </ReactMarkdown>
       </div>
 
       {/* Next Section Button */}
@@ -118,30 +123,30 @@ export function SectionContent({ sections, activeSection, onSectionChange }: Sec
         <div className="mt-16 pt-8 border-t border-[hsl(var(--gold-dark))]/20">
           <div className="flex justify-end">
             <div className="text-right">
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 tracking-wider uppercase">Next Section</p>
-            <button
-              onClick={() => onSectionChange(nextSection.id)}
-              className="group inline-flex items-center gap-3 transition-colors duration-300"
-            >
-              <span className="relative text-xl md:text-2xl italic text-[hsl(var(--gold-text))] group-hover:text-[hsl(var(--gold-light))] transition-colors duration-300">
-                <span
-                  className="
-                    relative
-                    after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full
-                    after:bg-[hsl(var(--gold-text))]
-                    after:origin-right after:scale-x-0
-                    after:transition-transform after:duration-300
-                    group-hover:after:origin-left group-hover:after:scale-x-100
-                  "
-                >
-                {nextSection.title}
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 tracking-wider uppercase">Next Section</p>
+              <button
+                onClick={() => onSectionChange(nextSection.id)}
+                className="group inline-flex items-center gap-3 transition-colors duration-300"
+              >
+                <span className="relative text-xl md:text-2xl italic text-[hsl(var(--gold-text))] group-hover:text-[hsl(var(--gold-light))] transition-colors duration-300">
+                  <span
+                    className="
+                      relative
+                      after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full
+                      after:bg-[hsl(var(--gold-text))]
+                      after:origin-right after:scale-x-0
+                      after:transition-transform after:duration-300
+                      group-hover:after:origin-left group-hover:after:scale-x-100
+                    "
+                  >
+                    {nextSection.title}
+                  </span>
                 </span>
-              </span>
-              <span className="opacity-0 group-hover:opacity-100 transform group-hover:translate-x-2 transition-all duration-300 text-2xl text-[hsl(var(--gold-text))] group-hover:text-[hsl(var(--gold-light))]">
-                →
-              </span>
-            </button>
-          </div>
+                <span className="opacity-0 group-hover:opacity-100 transform group-hover:translate-x-2 transition-all duration-300 text-2xl text-[hsl(var(--gold-text))] group-hover:text-[hsl(var(--gold-light))]">
+                  →
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       )}
