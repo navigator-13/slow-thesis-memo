@@ -21,23 +21,23 @@ export function TableOfContents({ sections, onSectionChange }: TableOfContentsPr
 
   return (
     <div>
-      <h1 className="text-5xl md:text-6xl lg:text-7xl mb-6 text-black dark:text-white tracking-wide leading-tight">
+      <h1 className="text-5xl md:text-6xl lg:text-7xl mb-6 text-primary tracking-wide leading-tight">
         TABLE OF<br/>CONTENTS
       </h1>
 
       {/* Decorative underline */}
-      <div className="w-24 h-0.5 mb-12 bg-gradient-to-r from-[hsl(var(--gold-dark))] to-transparent" />
+      <div className="w-24 h-0.5 mb-12" style={{ background: 'var(--gold-gradient)' }} />
 
       {/* Author and Date */}
-      <div className="mb-8 text-gray-700 dark:text-gray-300 italic">
+      <div className="mb-8 text-primary italic">
         <p className="text-lg">Your Name</p>
         <p className="text-lg">
           {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
         </p>
       </div>
 
-      <p className="text-gray-600 dark:text-gray-400 mb-12 italic">
-        For additional notes, <span className="gold-text-hoverable cursor-pointer transition-opacity">click here</span>.
+      <p className="text-muted mb-12 italic">
+        For additional notes, <span className="gold-text-hoverable gold-underline cursor-pointer transition-opacity">click here</span>.
       </p>
 
       {/* TOC Items */}
@@ -54,8 +54,8 @@ export function TableOfContents({ sections, onSectionChange }: TableOfContentsPr
             <h3 className={`
               text-2xl md:text-3xl mb-3 transition-all duration-300
               ${hoveredId === section.id
-                ? 'gold-text-hover'
-                : 'text-gray-900 dark:text-gray-300'
+                ? 'gold-text-hover gold-underline is-active'
+                : 'text-primary'
               }
             `}>
               {section.number && (
@@ -65,12 +65,12 @@ export function TableOfContents({ sections, onSectionChange }: TableOfContentsPr
             </h3>
 
             {/* Description */}
-            <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
+            <p className="text-muted mb-4 leading-relaxed">
               A brief description of this section would appear here, providing context about what the reader will discover.
             </p>
 
             {/* Animated Divider */}
-            <div className="relative h-px bg-gray-400/40 dark:bg-gray-700/20 overflow-hidden">
+            <div className="relative h-px bg-transparent overflow-hidden">
               <div
                 className={`
                   absolute inset-y-0 h-full transition-all duration-500 ease-out
@@ -80,8 +80,8 @@ export function TableOfContents({ sections, onSectionChange }: TableOfContentsPr
                   }
                 `}
                 style={{
-                  background: 'linear-gradient(90deg, hsl(var(--gold-dark)) 0%, hsl(var(--gold-base)) 50%, hsl(var(--gold-light)) 100%)',
-                  boxShadow: hoveredId === section.id ? '0 0 8px hsl(var(--gold-text))' : 'none',
+                  background: 'var(--gold-gradient)',
+                  boxShadow: hoveredId === section.id ? '0 0 8px rgba(225,194,122,0.4)' : 'none',
                 }}
               />
             </div>
@@ -90,25 +90,16 @@ export function TableOfContents({ sections, onSectionChange }: TableOfContentsPr
       </div>
 
       {/* Next Section Link */}
-      <div className="mt-20 pt-12 border-t border-[hsl(var(--gold-dark))]/20">
+      <div className="mt-20 pt-12 border-t" style={{ borderColor: 'rgba(140,106,62,0.2)' }}>
         <div className="flex justify-end">
           <div className="text-right">
-            <p className="text-sm text-gray-600 dark:text-gray-500 mb-4 tracking-wider uppercase">Next Section</p>
+            <p className="text-sm text-muted mb-4 tracking-wider uppercase">Next Section</p>
             <button
               onClick={() => contentSections[0] && onSectionChange(contentSections[0].id)}
               className="group inline-flex items-center gap-3 transition-colors duration-300"
             >
-              <span className="relative text-2xl italic gold-text-hoverable transition-colors duration-300">
-                <span
-                  className="
-                    relative
-                    after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full
-                    after:bg-[hsl(var(--gold-dark))]
-                    after:origin-right after:scale-x-0
-                    after:transition-transform after:duration-300
-                    group-hover:after:origin-left group-hover:after:scale-x-100
-                  "
-                >
+              <span className="relative text-2xl italic gold-text-hoverable gold-underline transition-colors duration-300">
+                <span className="relative">
                   {contentSections[0]?.title}
                 </span>
               </span>

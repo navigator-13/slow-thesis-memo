@@ -6,41 +6,48 @@
 
 @layer base {
   :root {
-    /* Light (daytime) mode - parchment/wheat */
-    --background: 44 31% 95%; /* #f5f1e8 */
-    --foreground: 0 0% 20%;
-    --sidebar-bg: 30 30% 6%; /* Brown in light mode */
-    --content-bg: 44 31% 95%;
+    --earth-900: #1F1A14;
+    --earth-50: #F3EFE7;
+    --text-dark: #E7E1D6;
+    --text-light: #15110D;
+    --gold-700: #8C6A3E;
+    --gold-500: #C99A5A;
+    --gold-300: #E1C27A;
+    --gold-gradient: linear-gradient(90deg, rgba(140,106,62,1) 0%, rgba(176,138,74,1) 50%, rgba(225,194,122,1) 100%);
 
-    /* Gold palette */
-    --gold-text: 42 49% 58%; /* #C9A961 (all gold text) */
-    --gold-dark: 40 38% 44%; /* #9B7E46 */
-    --gold-base: 46 65% 52%; /* #D4AF37 */
-    --gold-light: 38 60% 74%; /* #E5C896 */
+    --surface-light: var(--earth-900);
+    --surface-dark: #15110D;
 
-    /* Sidebar text */
-    --sidebar-text: 44 31% 95%; /* match light background */
-    --sidebar-divider: 102 102 102; /* gray RGB */
-    --sidebar-divider-alpha: 0.3; /* stronger in light mode */
+    --background: var(--earth-50);
+    --content-bg: var(--earth-50);
+    --foreground: var(--text-light);
+    --sidebar-bg: var(--surface-light);
+    --sidebar-text: #F3EFE7;
+    --text-primary: var(--text-light);
+    --text-muted: rgba(21, 17, 13, 0.7);
+    --gold-visited: #9B7844;
+    --sidebar-divider-alpha: 0.3;
 
-    --popover: 44 31% 95%;
-    --popover-foreground: 0 0% 15%;
-    --border: 0 0% 85%;
+    --popover: #F3EFE7;
+    --popover-foreground: #1F1A14;
+    --border: rgba(42, 34, 24, 0.15);
     --radius: 0.5rem;
   }
 
   .dark {
-    /* Dark (night) mode */
-    --background: 30 30% 6%; /* rich dark brown */
-    --foreground: 0 0% 92%;
-    --sidebar-bg: 0 0% 0%; /* Black in dark mode */
-    --content-bg: 30 30% 6%; /* rich dark brown */
-    --sidebar-divider: 102 102 102; /* gray RGB */
-    --sidebar-divider-alpha: 0.2; /* softer in dark mode */
+    --background: var(--earth-900);
+    --content-bg: var(--earth-900);
+    --foreground: var(--text-dark);
+    --sidebar-bg: var(--surface-dark);
+    --sidebar-text: var(--text-dark);
+    --text-primary: var(--text-dark);
+    --text-muted: rgba(231, 225, 214, 0.7);
+    --gold-visited: #8A6638;
+    --sidebar-divider-alpha: 0.2;
 
-    --popover: 220 25% 10%;
-    --popover-foreground: 0 0% 95%;
-    --border: 0 0% 25%;
+    --popover: #221B15;
+    --popover-foreground: #F0E9DD;
+    --border: rgba(231, 225, 214, 0.2);
   }
 }
 
@@ -54,71 +61,113 @@
   }
 
   body {
-    @apply bg-[hsl(var(--content-bg))] text-foreground antialiased;
+    background: var(--content-bg);
+    color: var(--foreground);
+    @apply antialiased;
     font-family: 'EB Garamond', serif;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
+  ::selection {
+    background: rgba(176, 138, 74, 0.25);
+  }
 }
 
-/* Background texture - topographic contour map */
 @layer utilities {
-  .gold-text-base {
-    color: #C99A5A;
+  .text-primary {
+    color: var(--text-primary);
   }
 
-  .gold-text-hover {
-    color: #E2C79A;
+  .text-muted {
+    color: var(--text-muted);
   }
 
+  .gold-text-base,
+  .gold-text-hover,
   .gold-text-hoverable {
-    color: #C99A5A;
+    color: var(--gold-500);
   }
 
   .gold-text-on-hover {
     color: inherit;
   }
 
-  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
-    .gold-text-base {
-      background-image: linear-gradient(90deg, #B88A4F 0%, #C99A5A 50%, #D8B06F 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      -webkit-text-fill-color: transparent;
-    }
+  .gold-underline {
+    background-image: var(--gold-gradient);
+    background-size: 0 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.25s ease;
+  }
 
-    .gold-text-hover {
-      background-image: linear-gradient(90deg, #D6B37C 0%, #E2C79A 50%, #EFE2C9 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      -webkit-text-fill-color: transparent;
-    }
+  .gold-underline:hover,
+  .group:hover .gold-underline,
+  .gold-underline.is-active {
+    background-size: 100% 1px;
+  }
 
-    .gold-text-hoverable {
-      background-image: linear-gradient(90deg, #B88A4F 0%, #C99A5A 50%, #D8B06F 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      -webkit-text-fill-color: transparent;
-    }
+  .gold-text-on-hover.is-active,
+  .group:hover .gold-text-on-hover,
+  .gold-text-on-hover:hover {
+    color: var(--gold-500);
+  }
 
-    .gold-text-hoverable:hover,
-    .group:hover .gold-text-hoverable,
-    .gold-text-hoverable.is-active {
-      background-image: linear-gradient(90deg, #D6B37C 0%, #E2C79A 50%, #EFE2C9 100%);
-    }
+  .gold-hover-text:hover,
+  .group:hover .gold-hover-text,
+  .gold-hover-text.is-active {
+    color: var(--gold-500);
+  }
 
-    .gold-text-on-hover.is-active,
-    .group:hover .gold-text-on-hover,
-    .gold-text-on-hover:hover {
-      background-image: linear-gradient(90deg, #D6B37C 0%, #E2C79A 50%, #EFE2C9 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      -webkit-text-fill-color: transparent;
-    }
+  :root .gold-text-hoverable:hover,
+  :root .group:hover .gold-text-hoverable,
+  :root .gold-text-hoverable.is-active,
+  :root .gold-hover-text:hover,
+  :root .group:hover .gold-hover-text,
+  :root .gold-hover-text.is-active {
+    color: #B88A4F;
+  }
+
+  .dark .gold-text-hoverable:hover,
+  .dark .group:hover .gold-text-hoverable,
+  .dark .gold-text-hoverable.is-active,
+  .dark .gold-hover-text:hover,
+  .dark .group:hover .gold-hover-text,
+  .dark .gold-hover-text.is-active {
+    color: #E2C79A;
+  }
+
+  .gold-link:visited {
+    color: var(--gold-visited);
+  }
+
+  .sidebar-divider {
+    background-image: var(--gold-gradient);
+    opacity: var(--sidebar-divider-alpha);
+  }
+
+  .sidebar-shell:hover + .sidebar-divider {
+    opacity: 0.35;
+  }
+
+  .toc-item {
+    background-image: none;
+  }
+
+  .toc-item:hover,
+  .toc-item.is-active {
+    background-image: linear-gradient(90deg, rgba(201,154,90,0.18) 0%, rgba(201,154,90,0.12) 50%, rgba(201,154,90,0.06) 100%);
+  }
+
+  .bottom-bar-divider::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-image: var(--gold-gradient);
+    opacity: 0.3;
+    pointer-events: none;
   }
 
   .bg-topographic {

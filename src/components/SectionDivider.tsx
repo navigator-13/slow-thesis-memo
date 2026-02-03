@@ -15,7 +15,7 @@ export function SectionDivider() {
 
         {/* Animated pulsing dots in center */}
         <g className="animate-pulse-dots">
-          <circle cx="385" cy="10" r="1.5" fill="hsl(var(--gold-text))" opacity="0.6">
+          <circle cx="385" cy="10" r="1.5" fill="var(--gold-500)" opacity="0.6">
             <animate
               attributeName="opacity"
               values="0.3;0.8;0.3"
@@ -29,7 +29,7 @@ export function SectionDivider() {
               repeatCount="indefinite"
             />
           </circle>
-          <circle cx="395" cy="10" r="2" fill="hsl(var(--gold-text))" opacity="0.8">
+          <circle cx="395" cy="10" r="2" fill="var(--gold-500)" opacity="0.8">
             <animate
               attributeName="opacity"
               values="0.4;1;0.4"
@@ -38,7 +38,7 @@ export function SectionDivider() {
               begin="0.3s"
             />
           </circle>
-          <circle cx="405" cy="10" r="2" fill="hsl(var(--gold-text))" opacity="0.8">
+          <circle cx="405" cy="10" r="2" fill="var(--gold-500)" opacity="0.8">
             <animate
               attributeName="opacity"
               values="0.4;1;0.4"
@@ -47,7 +47,7 @@ export function SectionDivider() {
               begin="0.6s"
             />
           </circle>
-          <circle cx="415" cy="10" r="1.5" fill="hsl(var(--gold-text))" opacity="0.6">
+          <circle cx="415" cy="10" r="1.5" fill="var(--gold-500)" opacity="0.6">
             <animate
               attributeName="opacity"
               values="0.3;0.8;0.3"
@@ -73,9 +73,9 @@ export function SectionDivider() {
             y2="0"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0%" stopColor="hsl(var(--gold-dark))" />
-            <stop offset="50%" stopColor="hsl(var(--gold-base))" />
-            <stop offset="100%" stopColor="hsl(var(--gold-light))" />
+            <stop offset="0%" stopColor="var(--gold-700)" />
+            <stop offset="50%" stopColor="var(--gold-500)" />
+            <stop offset="100%" stopColor="var(--gold-300)" />
             <animateTransform
               attributeName="gradientTransform"
               type="translate"

@@ -21,7 +21,7 @@ export function TwinklingStars() {
       {stars.map((star, i) => (
         <div
           key={i}
-          className="absolute w-0.5 h-0.5 bg-[hsl(var(--gold-light))] rounded-full animate-twinkle"
+          className="absolute w-0.5 h-0.5 bg-[var(--gold-300)] rounded-full animate-twinkle"
           style={{
             left: `${star.x}%`,
             top: `${star.y}%`,

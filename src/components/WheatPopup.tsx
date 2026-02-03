@@ -27,18 +27,21 @@ export function WheatPopup({ content, imageUrl, urlPreview }: WheatPopupProps) {
       {/* Popup */}
       {isOpen && (
         <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 animate-fade-in">
-          <div className="bg-[hsl(var(--sidebar-bg))] border border-[hsl(var(--gold-dark))]/30 rounded-lg p-4 shadow-2xl max-w-sm">
+          <div
+            className="bg-[var(--sidebar-bg)] border rounded-lg p-4 shadow-2xl max-w-sm"
+            style={{ borderColor: 'rgba(140,106,62,0.3)' }}
+          >
             {/* Close button */}
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-2 right-2 text-gray-400 gold-text-on-hover transition-colors"
+              className="absolute top-2 right-2 text-muted gold-text-on-hover transition-colors"
               aria-label="Close"
             >
               ✕
             </button>
 
             {/* Content */}
-            <div className="text-sm text-gray-300 leading-relaxed pr-6">
+            <div className="text-sm text-primary leading-relaxed pr-6">
               {content}
             </div>
 
@@ -57,7 +60,7 @@ export function WheatPopup({ content, imageUrl, urlPreview }: WheatPopupProps) {
                 href={urlPreview}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 block gold-text-hoverable transition-opacity text-sm"
+                className="mt-3 block gold-text-hoverable gold-underline gold-link transition-opacity text-sm"
               >
                 {urlPreview} →
               </a>
@@ -65,7 +68,7 @@ export function WheatPopup({ content, imageUrl, urlPreview }: WheatPopupProps) {
 
             {/* Arrow */}
             <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-px">
-              <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-[hsl(var(--sidebar-bg))]" />
+              <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-[var(--sidebar-bg)]" />
             </div>
           </div>
         </div>
@@ -102,20 +105,20 @@ function WheatIcon({ isHovered }: { isHovered: boolean }) {
         y1="20"
         x2="8"
         y2="2"
-        stroke="hsl(var(--gold-text))"
+        stroke="var(--gold-500)"
         strokeWidth="1.5"
         strokeLinecap="round"
       />
 
       {/* Wheat grains - left side */}
-      <ellipse cx="6" cy="4" rx="2" ry="3" fill="hsl(var(--gold-dark))" opacity="0.8" />
-      <ellipse cx="5.5" cy="7" rx="2" ry="3" fill="hsl(var(--gold-dark))" opacity="0.8" />
-      <ellipse cx="6" cy="10" rx="2" ry="3" fill="hsl(var(--gold-dark))" opacity="0.8" />
+      <ellipse cx="6" cy="4" rx="2" ry="3" fill="var(--gold-700)" opacity="0.8" />
+      <ellipse cx="5.5" cy="7" rx="2" ry="3" fill="var(--gold-700)" opacity="0.8" />
+      <ellipse cx="6" cy="10" rx="2" ry="3" fill="var(--gold-700)" opacity="0.8" />
 
       {/* Wheat grains - right side */}
-      <ellipse cx="10" cy="4" rx="2" ry="3" fill="hsl(var(--gold-dark))" opacity="0.8" />
-      <ellipse cx="10.5" cy="7" rx="2" ry="3" fill="hsl(var(--gold-dark))" opacity="0.8" />
-      <ellipse cx="10" cy="10" rx="2" ry="3" fill="hsl(var(--gold-dark))" opacity="0.8" />
+      <ellipse cx="10" cy="4" rx="2" ry="3" fill="var(--gold-700)" opacity="0.8" />
+      <ellipse cx="10.5" cy="7" rx="2" ry="3" fill="var(--gold-700)" opacity="0.8" />
+      <ellipse cx="10" cy="10" rx="2" ry="3" fill="var(--gold-700)" opacity="0.8" />
 
       <style jsx>{`
         @keyframes wiggle {

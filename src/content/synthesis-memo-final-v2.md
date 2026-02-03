@@ -5,7 +5,6 @@
 **Creator Fund Thesis + Category Insights Applied to Foundation**
 
 Prepared by Iván Langesfeld  
-New York, NY  
 January 2026
 
 ---
@@ -24,9 +23,9 @@ Independent boutique hospitality represents two distinct opportunities for Slow 
 
 ---
 
-## WHY THIS ANALYSIS IS DIFFERENT
+## Background
 
-This memo doesn't follow traditional venture capital market sizing. Slow Ventures recently invested $2M in Jonathan Katz-Moses, a woodworking creator with 600,000 YouTube subscribers who bootstrapped KM Tools from a 120-square-foot shed to a 33,000-square-foot facility. As Slow noted, "We're betting on creators with founder-level discipline and niche market insight, not someone chasing fame." Jonathan's vertically integrated approach—content, design, manufacturing, fulfillment—enables strong margins and brand control.
+This memo doesn't follow standard venture capital market sizing. Slow Ventures' Creator Fund recently invested $2M in Jonathan Katz-Moses, a woodworking creator with 600,000 YouTube subscribers who bootstrapped KM Tools from a 120-square-foot shed to a 33,000-square-foot facility. As Slow noted, "We're betting on creators with founder-level discipline and niche market insight, not someone chasing fame." Jonathan's vertically integrated approach—content, design, manufacturing, fulfillment—enables strong margins and brand control.
 
 This investment philosophy extends beyond technology. From Slow's letter:
 

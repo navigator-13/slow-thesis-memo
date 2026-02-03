@@ -14,7 +14,10 @@ type Props = {
 
 export function HomeClient({ sections }: Props) {
   const [activeSection, setActiveSection] = useState(() => sections[0]?.id ?? '');
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    if (typeof window === 'undefined') return 'dark';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  });
   const [showTexture, setShowTexture] = useState(true);
 
   useEffect(() => {
@@ -48,7 +51,7 @@ export function HomeClient({ sections }: Props) {
     <ThemeProvider>
       <div className="min-h-screen flex flex-col md:flex-row">
         {/* Desktop Sidebar */}
-        <div className="hidden md:block">
+        <div className="hidden md:block sidebar-shell">
           <Sidebar
             sections={sections}
             activeSection={activeSection}
@@ -57,10 +60,7 @@ export function HomeClient({ sections }: Props) {
             onThemeToggle={toggleTheme}
           />
         </div>
-        <div
-          className="hidden md:block fixed top-0 left-64 h-screen w-[3.5px] z-40 pointer-events-none"
-          style={{ backgroundColor: 'rgba(102,102,102, var(--sidebar-divider-alpha))' }}
-        />
+        <div className="hidden md:block fixed top-0 left-64 h-screen w-px z-40 pointer-events-none sidebar-divider" />
 
         {/* Main Content */}
         <main className="flex-1 relative md:ml-64">

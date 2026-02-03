@@ -23,17 +23,17 @@ export function BottomBar({ sections, activeSection, onSectionChange, theme, onT
   return (
     <div
       className="
-        bg-[hsl(var(--sidebar-bg))] w-full
+        bg-[var(--sidebar-bg)] w-full
         relative
-        before:content-[''] before:absolute before:top-0 before:left-0 before:right-0 before:h-px
-        before:bg-gradient-to-r before:from-transparent before:via-[hsl(var(--gold-text))] before:to-transparent
-        before:pointer-events-none
-        after:content-[''] after:absolute after:inset-0 after:pointer-events-none
-        after:bg-gradient-to-t after:from-black after:to-[hsl(var(--sidebar-bg))]
+        bottom-bar-divider
+        transition-colors duration-300
       "
     >
       {/* Logo and Theme Toggle Row */}
-      <div className="flex items-center justify-between px-4 py-2 border-b border-[hsl(var(--gold-dark))]/10">
+      <div
+        className="flex items-center justify-between px-4 py-2 border-b"
+        style={{ borderColor: 'rgba(140,106,62,0.2)' }}
+      >
         <div className="flex items-center gap-2">
           <LogoLink
             theme={theme}
@@ -41,15 +41,16 @@ export function BottomBar({ sections, activeSection, onSectionChange, theme, onT
           />
           <div className="text-[11px] font-bold tracking-wider whitespace-nowrap" style={{ fontFamily: "'Oswald', 'Bebas Neue', 'Arial Narrow', sans-serif" }}>
             <span className="gold-text-base">FOUNDATION </span>
-            <span className="text-white">+ </span>
+            <span className="text-primary">+ </span>
             <span className="gold-text-base">CREATOR FUND SYN</span>
-            <span className="text-white">(THESIS)</span>
+            <span className="text-primary">(THESIS)</span>
           </div>
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={onTextureToggle}
-            className={`w-9 h-9 flex items-center justify-center rounded-full border border-white/10 bg-black/40 wiggle-hover transition-opacity ${showTexture ? 'opacity-100' : 'opacity-60'}`}
+            className={`w-9 h-9 flex items-center justify-center rounded-full border wiggle-hover transition-opacity ${showTexture ? 'opacity-100' : 'opacity-60'}`}
+            style={{ borderColor: 'rgba(140,106,62,0.25)', backgroundColor: 'rgba(31,26,20,0.35)' }}
             aria-label="Toggle contour background"
           >
             <img src="/shovel%20icon.png" alt="" className="w-5 h-5 object-contain" />
@@ -68,8 +69,8 @@ export function BottomBar({ sections, activeSection, onSectionChange, theme, onT
               className={`
                 px-4 py-2 rounded-lg whitespace-nowrap text-sm transition-all duration-300
                 ${activeSection === section.id
-                  ? 'bg-gradient-to-r from-[hsl(var(--gold-dark))]/30 to-transparent gold-text-hover'
-                  : 'gold-text-hoverable'
+                  ? 'gold-text-hover gold-underline is-active'
+                  : 'text-primary gold-text-on-hover gold-underline'
                 }
               `}
             >

@@ -20,10 +20,9 @@ interface SidebarProps {
 export function Sidebar({ sections, activeSection, onSectionChange, theme, onThemeToggle }: SidebarProps) {
   return (
     <aside
+      style={{ ['--gold-500' as 'any']: '#E2C79A', ['--gold-300' as 'any']: '#E2C79A' }}
       className="
-        fixed left-0 top-0 h-screen w-64 bg-[hsl(var(--sidebar-bg))] z-50 flex flex-col
-        before:content-[''] before:absolute before:inset-0 before:pointer-events-none before:z-0
-        before:bg-gradient-to-r before:from-black before:to-[hsl(var(--sidebar-bg))]
+        fixed left-0 top-0 h-screen w-64 bg-[var(--sidebar-bg)] z-50 flex flex-col transition-colors duration-300
       "
     >
       {/* Logo - Fixed at top */}
@@ -34,11 +33,11 @@ export function Sidebar({ sections, activeSection, onSectionChange, theme, onThe
         />
         <div className="mt-1 text-center text-sm font-bold tracking-[0.2em] leading-relaxed gold-text-base" style={{ fontFamily: "'Oswald', 'Bebas Neue', 'Arial Narrow', sans-serif" }}>
           <div>FOUNDATION</div>
-          <div className="text-white my-0.5">+</div>
+          <div className="text-primary my-0.5">+</div>
           <div>CREATOR FUND</div>
           <div className="mt-1">
             <span>SYN</span>
-            <span className="text-white">(THESIS)</span>
+            <span className="text-primary">(THESIS)</span>
           </div>
         </div>
       </div>
@@ -53,11 +52,8 @@ export function Sidebar({ sections, activeSection, onSectionChange, theme, onThe
             key={section.id}
             onClick={() => onSectionChange(section.id)}
             className={`
-              w-full text-left px-4 py-3 rounded-lg transition-all duration-300 relative group
-              ${activeSection === section.id
-                ? 'bg-gradient-to-r from-[hsl(var(--gold-dark))]/20 to-transparent'
-                : 'hover:bg-gradient-to-r hover:from-[hsl(var(--gold-dark))]/10 hover:to-transparent'
-              }
+              w-full text-left px-4 py-3 rounded-lg transition-all duration-300 relative group toc-item
+              ${activeSection === section.id ? 'is-active' : ''}
             `}
           >
             <div className="flex items-start gap-2">
@@ -67,10 +63,10 @@ export function Sidebar({ sections, activeSection, onSectionChange, theme, onThe
                 </span>
               )}
               <span className={`
-                text-sm transition-colors duration-300
+                text-sm transition-colors duration-300 gold-hover-text
                 ${activeSection === section.id
-                  ? 'gold-text-on-hover is-active'
-                  : 'text-[hsl(var(--sidebar-text))] gold-text-on-hover'
+                  ? 'is-active'
+                  : 'text-[var(--sidebar-text)]'
                 }
               `}>
                 {section.title}
@@ -81,11 +77,11 @@ export function Sidebar({ sections, activeSection, onSectionChange, theme, onThe
       </nav>
 
       {/* Theme Toggle - Fixed at bottom with solid background (no stars) */}
-      <div className="flex-shrink-0 p-6 flex justify-center border-t border-[hsl(var(--gold-dark))]/10 bg-transparent relative z-10">
+      <div className="flex-shrink-0 p-6 flex justify-center bg-transparent relative z-10">
         <ThemeToggle
           theme={theme}
           onToggle={onThemeToggle}
-          className="bg-[hsl(var(--sidebar-bg))]"
+          className="bg-[var(--sidebar-bg)]"
         />
       </div>
     </aside>
