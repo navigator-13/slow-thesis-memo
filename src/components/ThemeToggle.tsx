@@ -21,9 +21,9 @@ export function ThemeToggle({ theme, onToggle, className }: ThemeToggleProps) {
       className="
         relative w-12 h-12 rounded-full flex items-center justify-center
         transition-colors duration-300
-        border
+        border-0
       "
-      style={{ borderColor: 'var(--text-muted)' }}
+      style={{ borderColor: 'transparent' }}
       aria-label="Toggle theme"
     >
       <div
@@ -44,7 +44,7 @@ export function ThemeToggle({ theme, onToggle, className }: ThemeToggleProps) {
         }}
       >
         {isDark ? (
-          <Sun
+          <Moon
             className="w-6 h-6"
             style={{
               stroke: isHovered ? 'var(--gold-300)' : 'var(--gold-500)',
@@ -54,7 +54,7 @@ export function ThemeToggle({ theme, onToggle, className }: ThemeToggleProps) {
             }}
           />
         ) : (
-          <Moon
+          <Sun
             className="w-6 h-6"
             style={{
               stroke: isHovered ? 'var(--gold-300)' : 'var(--gold-500)',

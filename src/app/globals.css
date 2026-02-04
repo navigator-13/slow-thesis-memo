@@ -28,6 +28,15 @@
     --gold-visited: #9B7844;
     --sidebar-divider-alpha: 0.3;
 
+    /* Sidebar hills (light mode: darker than background) */
+    --hill-back: #B6ADA2;
+    --hill-mid: #A29483;
+    --hill-front: #AB9D8E;
+    --hill-back-hover: #3A2F24;
+    --hill-mid-hover: #2B231B;
+    --hill-front-hover: #332A20;
+    --windmill-brightness: 1.05;
+
     --popover: #F3EFE7;
     --popover-foreground: #1F1A14;
     --border: rgba(42, 34, 24, 0.15);
@@ -44,6 +53,15 @@
     --text-muted: rgba(231, 225, 214, 0.7);
     --gold-visited: #8A6638;
     --sidebar-divider-alpha: 0.2;
+
+    /* Sidebar hills (dark mode: lighter than background) */
+    --hill-back: #3A2F24;
+    --hill-mid: #2B231B;
+    --hill-front: #332A20;
+    --hill-back-hover: #B6ADA2;
+    --hill-mid-hover: #A29483;
+    --hill-front-hover: #AB9D8E;
+    --windmill-brightness: 0.9;
 
     --popover: #221B15;
     --popover-foreground: #F0E9DD;
@@ -155,7 +173,12 @@
 
   .toc-item:hover,
   .toc-item.is-active {
-    background-image: linear-gradient(90deg, rgba(201,154,90,0.18) 0%, rgba(201,154,90,0.12) 50%, rgba(201,154,90,0.06) 100%);
+    background-image: linear-gradient(90deg, rgba(201,154,90,0.22) 0%, rgba(201,154,90,0.12) 55%, rgba(201,154,90,0) 100%);
+  }
+
+  /* Sidebar gold override */
+  .sidebar-shell {
+    --gold-500: #E2C79A;
   }
 
   .bottom-bar-divider::before {
@@ -197,4 +220,16 @@
     75% { transform: rotate(2deg); }
     100% { transform: rotate(0deg); }
   }
+
+  .hill-glow {
+    animation: hill-glow 0.8s ease-in-out;
+    opacity: 0.4;
+  }
+
+  @keyframes hill-glow {
+    0% { opacity: 0.1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 0.25; }
+  }
+
 }
