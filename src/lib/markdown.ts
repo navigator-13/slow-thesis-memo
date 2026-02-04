@@ -7,6 +7,7 @@ export type ParsedSection = {
 
 export type ParsedDocument = {
   title: string;
+  preface: string;
   sections: ParsedSection[];
 };
 
@@ -48,6 +49,9 @@ export function parseMarkdownSections(markdown: string): ParsedDocument {
   const lines = markdown.split(/\r?\n/);
   const sections: ParsedSection[] = [];
   let docTitle = '';
+  const prefaceLines: string[] = [];
+  let inPreface = true;
+  let skipSection = false;
   let current: ParsedSection | null = null;
   let buffer: string[] = [];
   let sectionIndex = 0;
@@ -62,14 +66,25 @@ export function parseMarkdownSections(markdown: string): ParsedDocument {
     const h1 = line.match(/^# (.+)$/);
     if (h1) {
       docTitle = h1[1].trim();
+      if (inPreface) prefaceLines.push(line);
       continue;
     }
 
     const h2 = line.match(/^## (.+)$/);
     if (h2) {
+      const title = h2[1].trim();
+      if (/^table of contents$/i.test(title)) {
+        inPreface = false;
+        skipSection = true;
+        flush();
+        buffer = [];
+        current = null;
+        continue;
+      }
+      skipSection = false;
+      inPreface = false;
       flush();
       buffer = [];
-      const title = h2[1].trim();
       sectionIndex += 1;
       current = {
         id: slugify(title) || `section-${sections.length + 1}`,
@@ -80,12 +95,20 @@ export function parseMarkdownSections(markdown: string): ParsedDocument {
       continue;
     }
 
-    buffer.push(line);
+    if (skipSection) {
+      continue;
+    }
+    if (inPreface) {
+      prefaceLines.push(line);
+    } else {
+      buffer.push(line);
+    }
   }
 
   flush();
   return {
     title: docTitle,
+    preface: prefaceLines.join('\n').trim(),
     sections,
   };
 }

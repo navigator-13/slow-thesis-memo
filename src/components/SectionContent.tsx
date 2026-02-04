@@ -15,9 +15,10 @@ interface SectionContentProps {
   sections: Section[];
   activeSection: string;
   onSectionChange: (id: string) => void;
+  preface: string;
 }
 
-export function SectionContent({ sections, activeSection, onSectionChange }: SectionContentProps) {
+export function SectionContent({ sections, activeSection, onSectionChange, preface }: SectionContentProps) {
   const [fadeIn, setFadeIn] = useState(false);
 
   useEffect(() => {
@@ -33,9 +34,72 @@ export function SectionContent({ sections, activeSection, onSectionChange }: Sec
   const nextSection = currentIndex < sections.length - 1 ? sections[currentIndex + 1] : null;
 
   const currentSection = sections.find(s => s.id === activeSection);
+  const showPreface = currentIndex === 0 && Boolean(preface);
+
+  const markdownComponents = {
+    h1: ({ children }: { children: React.ReactNode }) => (
+      <h1 className="text-3xl md:text-4xl lg:text-5xl mb-8 text-primary uppercase tracking-[0.18em] leading-tight">
+        {children}
+      </h1>
+    ),
+    h2: ({ children }: { children: React.ReactNode }) => (
+      <h2 className="text-2xl md:text-3xl italic mb-6 mt-10 text-primary">
+        {children}
+      </h2>
+    ),
+    h3: ({ children }: { children: React.ReactNode }) => (
+      <h3 className="text-xl md:text-2xl italic mb-4 mt-8 text-primary">
+        {children}
+      </h3>
+    ),
+    h4: ({ children }: { children: React.ReactNode }) => (
+      <h4 className="text-lg md:text-xl italic mb-3 mt-6 text-primary">
+        {children}
+      </h4>
+    ),
+    p: ({ children }: { children: React.ReactNode }) => (
+      <p className="text-primary leading-relaxed mb-6 text-lg">
+        {children}
+      </p>
+    ),
+    li: ({ children }: { children: React.ReactNode }) => (
+      <li className="text-primary leading-relaxed">
+        {children}
+      </li>
+    ),
+    a: ({ children, href }: { children: React.ReactNode; href?: string }) => (
+      <a
+        href={href}
+        className="gold-text-hoverable gold-underline gold-link transition-colors duration-200"
+      >
+        {children}
+      </a>
+    ),
+    hr: () => <hr className="my-10" style={{ borderColor: 'rgba(140,106,62,0.2)' }} />,
+    strong: ({ children }: { children: React.ReactNode }) => <strong className="gold-text-base">{children}</strong>,
+    em: ({ children }: { children: React.ReactNode }) => <em className="italic gold-text-base">{children}</em>,
+    ul: ({ children }: { children: React.ReactNode }) => <ul className="list-disc list-inside space-y-3 mb-6 ml-4">{children}</ul>,
+    ol: ({ children }: { children: React.ReactNode }) => <ol className="list-decimal list-inside space-y-3 mb-6 ml-4">{children}</ol>,
+    blockquote: ({ children }: { children: React.ReactNode }) => (
+      <blockquote className="border-l-2 border-[color:var(--gold-700)] pl-4 text-muted italic my-6">
+        {children}
+      </blockquote>
+    ),
+  } satisfies React.ComponentProps<typeof ReactMarkdown>['components'];
 
   return (
     <div className="max-w-4xl mx-auto px-6 md:px-12 py-12 md:py-20">
+      {showPreface && (
+        <div className="mb-10">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={markdownComponents}
+          >
+            {preface}
+          </ReactMarkdown>
+        </div>
+      )}
+
       {/* Section Header with Fade-in */}
       <div
         style={{
@@ -69,51 +133,7 @@ export function SectionContent({ sections, activeSection, onSectionChange }: Sec
       <div className="prose prose-lg max-w-none">
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
-          components={{
-            h2: ({ children }) => (
-              <h2 className="text-2xl md:text-3xl italic mb-6 mt-10 text-primary">
-                {children}
-              </h2>
-            ),
-            h3: ({ children }) => (
-              <h3 className="text-xl md:text-2xl italic mb-4 mt-8 text-primary">
-                {children}
-              </h3>
-            ),
-            h4: ({ children }) => (
-              <h4 className="text-lg md:text-xl italic mb-3 mt-6 text-primary">
-                {children}
-              </h4>
-            ),
-            p: ({ children }) => (
-              <p className="text-primary leading-relaxed mb-6 text-lg">
-                {children}
-              </p>
-            ),
-            li: ({ children }) => (
-              <li className="text-primary leading-relaxed">
-                {children}
-              </li>
-            ),
-            a: ({ children, href }) => (
-              <a
-                href={href}
-                className="gold-text-hoverable gold-underline gold-link transition-colors duration-200"
-              >
-                {children}
-              </a>
-            ),
-            hr: () => <hr className="my-10" style={{ borderColor: 'rgba(140,106,62,0.2)' }} />,
-            strong: ({ children }) => <strong className="gold-text-base">{children}</strong>,
-            em: ({ children }) => <em className="italic gold-text-base">{children}</em>,
-            ul: ({ children }) => <ul className="list-disc list-inside space-y-3 mb-6 ml-4">{children}</ul>,
-            ol: ({ children }) => <ol className="list-decimal list-inside space-y-3 mb-6 ml-4">{children}</ol>,
-            blockquote: ({ children }) => (
-              <blockquote className="border-l-2 border-[color:var(--gold-700)] pl-4 text-muted italic my-6">
-                {children}
-              </blockquote>
-            ),
-          }}
+          components={markdownComponents}
         >
           {currentSection?.content ?? ''}
         </ReactMarkdown>

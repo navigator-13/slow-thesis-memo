@@ -27,6 +27,7 @@
     --text-muted: rgba(21, 17, 13, 0.7);
     --gold-visited: #9B7844;
     --sidebar-divider-alpha: 0.3;
+    --sidebar-divider-color: var(--text-light);
 
     /* Sidebar hills (light mode: darker than background) */
     --hill-back: #B6ADA2;
@@ -53,6 +54,7 @@
     --text-muted: rgba(231, 225, 214, 0.7);
     --gold-visited: #8A6638;
     --sidebar-divider-alpha: 0.2;
+    --sidebar-divider-color: var(--text-dark);
 
     /* Sidebar hills (dark mode: lighter than background) */
     --hill-back: #3A2F24;
@@ -159,7 +161,7 @@
   }
 
   .sidebar-divider {
-    background-image: var(--gold-gradient);
+    background-color: var(--sidebar-divider-color);
     opacity: var(--sidebar-divider-alpha);
   }
 
@@ -222,14 +224,8 @@
   }
 
   .hill-glow {
-    animation: hill-glow 0.8s ease-in-out;
     opacity: 0.4;
-  }
-
-  @keyframes hill-glow {
-    0% { opacity: 0.1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 0.25; }
+    transition: opacity 0.2s ease;
   }
 
 }

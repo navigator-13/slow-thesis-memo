@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "synthesis-memo-final-v2.md",
+                "file": "synthesis-memo-v3.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "synthesis-memo-final-v2"
+              "title": "synthesis-memo-v3"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "synthesis-memo-final-v2.md",
+                "file": "synthesis-memo-v3.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for synthesis-memo-final-v2"
+              "title": "Backlinks for synthesis-memo-v3"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "synthesis-memo-final-v2.md",
+                "file": "synthesis-memo-v3.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from synthesis-memo-final-v2"
+              "title": "Outgoing links from synthesis-memo-v3"
             }
           },
           {
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "synthesis-memo-final-v2.md",
+                "file": "synthesis-memo-v3.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of synthesis-memo-final-v2"
+              "title": "Outline of synthesis-memo-v3"
             }
           }
         ]
@@ -183,6 +183,10 @@
       "bases:Create new base": false
     }
   },
-  "active": "7498058020f6831e",
-  "lastOpenFiles": []
+  "active": "4beb5f544c833336",
+  "lastOpenFiles": [
+    "Untitled",
+    "synthesis-memo-final-v2.md",
+    "synthesis-memo-v3.md"
+  ]
 }

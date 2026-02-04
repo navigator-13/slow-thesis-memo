@@ -24,21 +24,40 @@ export function Sidebar({ sections, activeSection, onSectionChange, theme, onThe
         fixed left-0 top-0 h-screen w-64 bg-[var(--sidebar-bg)] z-50 flex flex-col transition-colors duration-300
       "
     >
+      <div className="absolute top-0 right-0 h-full w-[3px] sidebar-divider pointer-events-none" />
       {/* Title - Top */}
-      <div className="flex-shrink-0 flex flex-col justify-center items-center py-8 px-6 relative z-10">
+      <div className="flex-shrink-0 flex flex-col justify-center items-center pt-8 pb-4 px-6 relative z-10">
         <div className="text-center text-sm font-bold tracking-[0.2em] leading-relaxed gold-text-base" style={{ fontFamily: "'Oswald', 'Bebas Neue', 'Arial Narrow', sans-serif" }}>
-          <div>CREATOR FUND</div>
-          <div className="text-[var(--text-dark)] my-0">+</div>
-          <div>FOUNDATION</div>
-          <div className="mt-4 text-[1.4em] leading-none">
+          <div className="mb-4 text-[1.4em] leading-none">
             <span>SYN</span>
             <span className="text-[var(--text-dark)]">(THESIS)</span>
+            <span>:</span>
+          </div>
+          <div>
+            CREATOR FUND <span className="text-[var(--text-dark)]">+</span> FOUNDATION INSIGHTS
           </div>
         </div>
       </div>
 
       {/* Navigation */}
-      <div className="flex-1 px-4 relative z-10 mt-4 min-h-0">
+      <div className="flex-1 px-4 relative z-10 mt-2 min-h-0">
+        <div className="flex justify-center mb-4">
+          <span
+            className="block w-10 h-12"
+            style={{
+              backgroundColor: '#E2C79A',
+              WebkitMaskImage: `url('/${theme === 'dark' ? 'logo-night.png' : 'logo-day.png'}')`,
+              maskImage: `url('/${theme === 'dark' ? 'logo-night.png' : 'logo-day.png'}')`,
+              WebkitMaskRepeat: 'no-repeat',
+              maskRepeat: 'no-repeat',
+              WebkitMaskSize: 'contain',
+              maskSize: 'contain',
+              WebkitMaskPosition: 'center',
+              maskPosition: 'center',
+            }}
+            aria-hidden="true"
+          />
+        </div>
         <div className="px-4 pt-1 pb-2 text-xs font-bold tracking-[0.2em] uppercase gold-text-base">
           Table of Contents
         </div>

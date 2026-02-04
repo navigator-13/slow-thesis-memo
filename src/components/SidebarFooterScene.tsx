@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { ThemeToggle } from './ThemeToggle';
 
 type Props = {
@@ -12,6 +12,7 @@ type HillKey = 'back' | 'mid' | 'front' | null;
 
 export function SidebarFooterScene({ theme, onToggle }: Props) {
   const [hovered, setHovered] = useState<HillKey>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const hillFill = (key: Exclude<HillKey, null>) =>
     `var(--hill-${key})`;
@@ -21,7 +22,21 @@ export function SidebarFooterScene({ theme, onToggle }: Props) {
   const frontPath = 'M-40,154 C70,132 170,132 260,146 C300,152 320,164 370,172 L370,180 L-40,180 Z';
 
   return (
-    <div className="relative h-[180px] w-full">
+    <div
+      ref={containerRef}
+      className="relative h-[180px] w-full"
+      onMouseLeave={() => setHovered(null)}
+      onMouseMove={(e) => {
+        const el = containerRef.current;
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const y = e.clientY - rect.top;
+        // Approximate bands from top to bottom within the 180px scene
+        if (y < 115) setHovered('back');
+        else if (y < 145) setHovered('mid');
+        else setHovered('front');
+      }}
+    >
       {/* Back hill */}
       <svg
         viewBox="0 0 320 180"
@@ -87,7 +102,7 @@ export function SidebarFooterScene({ theme, onToggle }: Props) {
             d={hovered === 'mid' ? midPath : frontPath}
             fill={hovered === 'mid' ? 'var(--hill-mid-hover)' : 'var(--hill-front-hover)'}
             className="hill-glow"
-            mask={`url(#mask-${hovered})`}
+            mask={`url(#mask-${hovered === 'mid' ? 'mid' : 'front'})`}
           />
         )}
 
@@ -110,51 +125,7 @@ export function SidebarFooterScene({ theme, onToggle }: Props) {
         </defs>
       </svg>
 
-      {/* Hover hit areas for visible bands (on top, but behind orbit) */}
-      <svg
-        viewBox="0 0 320 180"
-        preserveAspectRatio="none"
-        className="absolute inset-0 h-full w-full z-[40]"
-      >
-        <path
-          d={backPath}
-          fill="transparent"
-          mask="url(#mask-back)"
-          onMouseEnter={() => setHovered('back')}
-          onMouseLeave={() => setHovered(null)}
-        />
-        <path
-          d={midPath}
-          fill="transparent"
-          mask="url(#mask-mid)"
-          onMouseEnter={() => setHovered('mid')}
-          onMouseLeave={() => setHovered(null)}
-        />
-        <path
-          d={frontPath}
-          fill="transparent"
-          mask="url(#mask-front)"
-          onMouseEnter={() => setHovered('front')}
-          onMouseLeave={() => setHovered(null)}
-        />
-        <defs>
-          <mask id="mask-back">
-            <rect width="100%" height="100%" fill="black" />
-            <path d={backPath} fill="white" />
-            <path d={midPath} fill="black" />
-            <path d={frontPath} fill="black" />
-          </mask>
-          <mask id="mask-mid">
-            <rect width="100%" height="100%" fill="black" />
-            <path d={midPath} fill="white" />
-            <path d={frontPath} fill="black" />
-          </mask>
-          <mask id="mask-front">
-            <rect width="100%" height="100%" fill="black" />
-            <path d={frontPath} fill="white" />
-          </mask>
-        </defs>
-      </svg>
+      {/* Hover hit areas removed; using container mouse tracking */}
 
       
     </div>

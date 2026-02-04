@@ -4,9 +4,9 @@ import { HomeClient } from './HomeClient';
 import { parseMarkdownSections } from '@/lib/markdown';
 
 export default function Home() {
-  const filePath = path.join(process.cwd(), 'src', 'content', 'synthesis-memo-final-v2.md');
+  const filePath = path.join(process.cwd(), 'src', 'content', 'synthesis-memo-v3.md');
   const markdown = fs.readFileSync(filePath, 'utf8');
-  const { sections } = parseMarkdownSections(markdown);
+  const { sections, preface } = parseMarkdownSections(markdown);
 
-  return <HomeClient sections={sections} />;
+  return <HomeClient sections={sections} preface={preface} />;
 }

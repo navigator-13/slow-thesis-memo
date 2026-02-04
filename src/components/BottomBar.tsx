@@ -53,7 +53,20 @@ export function BottomBar({ sections, activeSection, onSectionChange, theme, onT
             style={{ borderColor: 'rgba(140,106,62,0.25)', backgroundColor: 'rgba(31,26,20,0.35)' }}
             aria-label="Toggle contour background"
           >
-            <img src="/shovel%20icon.png" alt="" className="w-5 h-5 object-contain" />
+            <span
+              className="w-5 h-5 block"
+              style={{
+                backgroundColor: theme === 'light' ? 'var(--sidebar-bg)' : '#E2C79A',
+                WebkitMaskImage: "url('/shovel%20icon.png')",
+                maskImage: "url('/shovel%20icon.png')",
+                WebkitMaskRepeat: 'no-repeat',
+                maskRepeat: 'no-repeat',
+                WebkitMaskSize: 'contain',
+                maskSize: 'contain',
+                WebkitMaskPosition: 'center',
+                maskPosition: 'center',
+              }}
+            />
           </button>
           <ThemeToggle theme={theme} onToggle={onThemeToggle} />
         </div>

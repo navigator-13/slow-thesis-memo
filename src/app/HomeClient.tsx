@@ -10,9 +10,10 @@ import type { ParsedSection } from '@/lib/markdown';
 
 type Props = {
   sections: ParsedSection[];
+  preface: string;
 };
 
-export function HomeClient({ sections }: Props) {
+export function HomeClient({ sections, preface }: Props) {
   const [activeSection, setActiveSection] = useState(() => sections[0]?.id ?? '');
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window === 'undefined') return 'dark';
@@ -60,7 +61,6 @@ export function HomeClient({ sections }: Props) {
             onThemeToggle={toggleTheme}
           />
         </div>
-        <div className="hidden md:block fixed top-0 left-64 h-screen w-px z-40 pointer-events-none sidebar-divider" />
 
         {/* Main Content */}
         <main className="flex-1 relative md:ml-64">
@@ -69,6 +69,7 @@ export function HomeClient({ sections }: Props) {
               sections={sections}
               activeSection={activeSection}
               onSectionChange={handleSectionChange}
+              preface={preface}
             />
           </div>
         </main>
@@ -79,12 +80,19 @@ export function HomeClient({ sections }: Props) {
           className={`hidden md:flex fixed bottom-6 right-6 z-40 w-16 h-16 items-center justify-center wiggle-hover transition-opacity ${showTexture ? 'opacity-100' : 'opacity-60'}`}
           aria-label="Toggle contour background"
         >
-          <Image
-            src="/shovel%20icon.png"
-            alt=""
-            width={72}
-            height={72}
-            className="object-contain"
+          <span
+            className="w-[72px] h-[72px] block"
+            style={{
+              backgroundColor: theme === 'light' ? 'var(--sidebar-bg)' : '#E2C79A',
+              WebkitMaskImage: "url('/shovel%20icon.png')",
+              maskImage: "url('/shovel%20icon.png')",
+              WebkitMaskRepeat: 'no-repeat',
+              maskRepeat: 'no-repeat',
+              WebkitMaskSize: 'contain',
+              maskSize: 'contain',
+              WebkitMaskPosition: 'center',
+              maskPosition: 'center',
+            }}
           />
         </button>
 
