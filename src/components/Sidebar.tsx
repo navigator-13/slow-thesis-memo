@@ -41,7 +41,12 @@ export function Sidebar({ sections, activeSection, onSectionChange, theme, onThe
     >
       <div className="absolute top-0 right-0 h-full w-[3px] sidebar-divider pointer-events-none" />
       {/* Title - Top */}
-      <div className="flex-shrink-0 flex flex-col justify-center items-center pt-8 pb-4 px-6 relative z-10">
+      <button
+        type="button"
+        onClick={() => onSectionChange(sections[0]?.id ?? '')}
+        className="flex-shrink-0 flex flex-col justify-center items-center pt-8 pb-4 px-6 relative z-10 text-center"
+        aria-label="Go to top section"
+      >
         <div className="text-center text-sm font-bold tracking-[0.2em] leading-relaxed gold-text-base" style={{ fontFamily: "'Oswald', 'Bebas Neue', 'Arial Narrow', sans-serif" }}>
           <div className="mb-4 text-[1.4em] leading-none">
             <span>SYN</span>
@@ -52,7 +57,7 @@ export function Sidebar({ sections, activeSection, onSectionChange, theme, onThe
             CREATOR FUND <span className="text-[var(--text-dark)]">+</span> FOUNDATION INSIGHTS
           </div>
         </div>
-      </div>
+      </button>
 
       {/* Navigation */}
       <div className="flex-1 px-4 relative z-10 mt-2 min-h-0 flex flex-col">

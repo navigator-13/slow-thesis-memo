@@ -44,27 +44,34 @@ export function BottomBar({ sections, activeSection, onSectionChange, theme }: B
 
   return (
     <div
-      className="
+      className={`
         bg-[var(--sidebar-bg)] w-full
         relative
         bottom-bar-divider
         transition-colors duration-300
-      "
+        ${theme === 'light' ? 'bottom-bar-light' : ''}
+      `}
     >
       {/* Logo and Theme Toggle Row */}
       <div
         className="flex border-b"
         style={{ borderColor: 'rgba(140,106,62,0.2)' }}
       >
-        <div className="w-[120px] flex flex-col items-center justify-center gap-2 px-2 py-3 border-r" style={{ borderColor: 'rgba(140,106,62,0.2)' }}>
+        <button
+          type="button"
+          onClick={() => onSectionChange(sections[0]?.id ?? '')}
+          className="w-[120px] flex flex-col items-center justify-center gap-2 px-2 py-3 border-r"
+          style={{ borderColor: 'rgba(140,106,62,0.2)' }}
+          aria-label="Go to top section"
+        >
           <LogoLink
             theme={theme}
             sizePx={26}
           />
-          <div className="text-[10px] tracking-[0.2em] gold-text-base leading-none" style={{ fontFamily: "'Oswald', 'Bebas Neue', 'Arial Narrow', sans-serif" }}>
+          <div className="text-[10px] tracking-[0.2em] gold-text-base leading-none bottom-bar-syn" style={{ fontFamily: "'Oswald', 'Bebas Neue', 'Arial Narrow', sans-serif" }}>
             SYN<span className="text-primary">(THESIS)</span>
           </div>
-        </div>
+        </button>
         <div className="flex-1">
           {/* Scrollable Navigation */}
           <div className="overflow-x-auto">
@@ -84,7 +91,7 @@ export function BottomBar({ sections, activeSection, onSectionChange, theme }: B
                       key={section.id}
                       onClick={() => onSectionChange(section.id)}
                       className={`
-                        px-3 py-2 rounded-full whitespace-nowrap text-[11px] transition-all duration-300 border
+                        px-3 py-2 rounded-full whitespace-nowrap text-[11px] transition-all duration-300 border bottom-bar-subchip
                         ${activeSection === section.id
                           ? 'border-[rgba(184,138,79,0.9)] gold-text-base'
                           : 'border-[rgba(184,138,79,0.45)] text-primary'
@@ -110,7 +117,7 @@ export function BottomBar({ sections, activeSection, onSectionChange, theme }: B
                         }
                       }}
                       className={`
-                        px-4 py-2 rounded-lg whitespace-nowrap text-sm transition-all duration-300
+                        px-4 py-2 rounded-lg whitespace-nowrap text-sm transition-all duration-300 bottom-bar-chip
                         ${activeTopId === section.id
                           ? 'gold-text-hover gold-underline is-active'
                           : 'text-primary gold-text-on-hover gold-underline'
@@ -134,7 +141,7 @@ export function BottomBar({ sections, activeSection, onSectionChange, theme }: B
                       key={section.id}
                       onClick={() => onSectionChange(section.id)}
                       className={`
-                        px-3 py-2 rounded-full whitespace-nowrap text-[11px] transition-all duration-300 border
+                        px-3 py-2 rounded-full whitespace-nowrap text-[11px] transition-all duration-300 border bottom-bar-subchip
                         ${activeSection === section.id
                           ? 'border-[rgba(184,138,79,0.9)] gold-text-base'
                           : 'border-[rgba(184,138,79,0.45)] text-primary'

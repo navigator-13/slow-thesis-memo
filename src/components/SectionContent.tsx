@@ -63,29 +63,45 @@ export function SectionContent({ sections, activeSection, onSectionChange, prefa
     input.toLowerCase().replace(/[:.]+$/, '').trim();
 
   const isJumpToParagraph = (children: React.ReactNode) => {
-    const nodes = Array.isArray(children) ? children : [children];
-    for (const node of nodes) {
-      if (node && typeof node === 'object' && 'type' in node && node.type === 'strong') {
-        const text = getTextFromChildren((node as { props?: { children?: React.ReactNode } }).props?.children).trim();
-        return text.toLowerCase() === 'jump to:';
+    const walk = (node: React.ReactNode): boolean => {
+      if (!node) return false;
+      if (Array.isArray(node)) return node.some(walk);
+      if (typeof node === 'object' && 'type' in node && 'props' in node) {
+        if (node.type === 'strong') {
+          const text = getTextFromChildren((node as { props?: { children?: React.ReactNode } }).props?.children).trim();
+          const normalized = text.toLowerCase().replace(/[:.]+$/, '');
+          if (normalized === 'jump to') return true;
+        }
+        return walk((node as { props?: { children?: React.ReactNode } }).props?.children);
       }
-    }
-    return false;
+      return false;
+    };
+    return walk(children);
   };
 
   const extractJumpLinks = (children: React.ReactNode) => {
-    const nodes = Array.isArray(children) ? children : [children];
     const links: Array<{ href?: string; label: React.ReactNode; key: string }> = [];
-    nodes.forEach((node, index) => {
-      if (node && typeof node === 'object' && 'type' in node && node.type === 'a') {
-        const props = (node as { props?: { href?: string; children?: React.ReactNode } }).props;
-        links.push({
-          href: props?.href,
-          label: props?.children,
-          key: `${props?.href ?? 'link'}-${index}`,
-        });
+    let idx = 0;
+    const walk = (node: React.ReactNode) => {
+      if (!node) return;
+      if (Array.isArray(node)) {
+        node.forEach(walk);
+        return;
       }
-    });
+      if (typeof node === 'object' && 'type' in node && 'props' in node) {
+        if (node.type === 'a') {
+          const props = (node as { props?: { href?: string; children?: React.ReactNode } }).props;
+          links.push({
+            href: props?.href,
+            label: props?.children,
+            key: `${props?.href ?? 'link'}-${idx++}`,
+          });
+          return;
+        }
+        walk((node as { props?: { children?: React.ReactNode } }).props?.children);
+      }
+    };
+    walk(children);
     return links;
   };
 
@@ -141,45 +157,61 @@ export function SectionContent({ sections, activeSection, onSectionChange, prefa
       const childArray = Array.isArray(children) ? children : [children];
       let mappedTarget: string | null = null;
       let titleText = '';
-      let mappedStrongIndex = -1;
+      let leadIndex = -1;
+
+      const leadMap: Record<string, string | null> = {
+        ...execSummaryTargets,
+        'timing': 'conclusion',
+        'live investment opportunity': 'conclusion',
+      };
 
       childArray.forEach((child, index) => {
-        if (mappedTarget) return;
-        if (child && typeof child === 'object' && 'type' in child && child.type === 'strong') {
+        if (leadIndex >= 0) return;
+        if (child && typeof child === 'object' && 'props' in child) {
           const text = getTextFromChildren((child as { props?: { children?: React.ReactNode } }).props?.children).trim();
+          if (!text) return;
           const normalized = normalizeExecTitle(text);
-          if (execSummaryTargets[normalized]) {
-            mappedTarget = execSummaryTargets[normalized];
+          if (normalized in leadMap) {
+            leadIndex = index;
             titleText = text;
-            mappedStrongIndex = index;
+            mappedTarget = leadMap[normalized];
           }
         }
       });
 
       const hasMappedTarget = Boolean(mappedTarget);
+      const hasStrongLead = leadIndex >= 0;
+
+      if (!hasStrongLead) {
+        return (
+          <p className="text-primary leading-relaxed mb-6 text-lg">
+            {children}
+          </p>
+        );
+      }
+
+      const targetId = mappedTarget ?? 'conclusion';
 
       return (
-        <p
-          className={`text-primary leading-relaxed mb-6 text-lg ${hasMappedTarget ? 'exec-summary-paragraph' : ''}`}
-          onMouseEnter={() => hasMappedTarget && setHoveredExecTitle(mappedTarget)}
-          onMouseLeave={() => hasMappedTarget && setHoveredExecTitle(null)}
+        <button
+          type="button"
+          onClick={() => onSectionChange(targetId)}
+          className="exec-summary-paragraph text-primary leading-relaxed mb-6 text-lg text-left w-full"
+          onMouseEnter={() => setHoveredExecTitle(targetId)}
+          onMouseLeave={() => setHoveredExecTitle(null)}
         >
-          {hasMappedTarget
-            ? childArray.map((child, index) => {
-              if (index !== mappedStrongIndex) return child;
-              return (
-                <button
-                  key={`exec-title-${mappedTarget}`}
-                  type="button"
-                  onClick={() => mappedTarget && onSectionChange(mappedTarget)}
-                  className={`exec-summary-title gold-underline ${hoveredExecTitle === mappedTarget ? 'is-active' : ''}`}
-                >
-                  <strong>{titleText}</strong>
-                </button>
-              );
-            })
-            : children}
-        </p>
+          {childArray.map((child, index) => {
+            if (index !== leadIndex) return child;
+            return (
+              <span
+                key={`exec-strong-${index}`}
+                className={`exec-summary-strong gold-underline ${hoveredExecTitle === targetId ? 'is-active' : ''}`}
+              >
+                {child}
+              </span>
+            );
+          })}
+        </button>
       );
     },
     li: ({ children }: { children: React.ReactNode }) => (
@@ -205,6 +237,18 @@ export function SectionContent({ sections, activeSection, onSectionChange, prefa
     em: ({ children }: { children: React.ReactNode }) => <em className="italic gold-text-base">{children}</em>,
     ul: ({ children }: { children: React.ReactNode }) => <ul className="list-disc list-inside space-y-3 mb-6 ml-4">{children}</ul>,
     ol: ({ children }: { children: React.ReactNode }) => <ol className="list-decimal list-inside space-y-3 mb-6 ml-4">{children}</ol>,
+    table: ({ children }: { children: React.ReactNode }) => (
+      <div className="overflow-x-auto mb-8">
+        <table className="memo-table">
+          {children}
+        </table>
+      </div>
+    ),
+    thead: ({ children }: { children: React.ReactNode }) => <thead>{children}</thead>,
+    tbody: ({ children }: { children: React.ReactNode }) => <tbody>{children}</tbody>,
+    tr: ({ children }: { children: React.ReactNode }) => <tr>{children}</tr>,
+    th: ({ children }: { children: React.ReactNode }) => <th>{children}</th>,
+    td: ({ children }: { children: React.ReactNode }) => <td>{children}</td>,
     blockquote: ({ children }: { children: React.ReactNode }) => (
       <blockquote className="border-l-2 border-[color:var(--gold-700)] pl-4 text-muted italic my-6">
         {children}

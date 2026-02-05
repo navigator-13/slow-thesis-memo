@@ -244,6 +244,16 @@
     transform: translateX(12px);
   }
 
+  .exec-summary-strong {
+    margin-right: 6px;
+    color: inherit;
+    background-image: var(--gold-gradient);
+    background-size: 0 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: color 0.25s ease, background-size 0.25s ease;
+  }
+
   .exec-summary-title {
     background: transparent;
     border: none;
@@ -260,6 +270,7 @@
   }
 
   .exec-summary-paragraph:hover .exec-summary-title,
+  .exec-summary-paragraph:hover .exec-summary-strong,
   .exec-summary-title.is-active {
     color: #E2C79A;
     background-size: 100% 1px;
@@ -273,6 +284,78 @@
 
   .operator-divider {
     border-top-width: 2px;
+  }
+
+  :root .bottom-bar-light .gold-text-base,
+  :root .bottom-bar-light .text-primary,
+  :root .bottom-bar-light .bottom-bar-chip,
+  :root .bottom-bar-light .bottom-bar-subchip {
+    color: var(--text-dark);
+  }
+
+  :root .bottom-bar-light .gold-text-on-hover,
+  :root .bottom-bar-light .gold-hover-text {
+    color: var(--text-dark);
+  }
+
+  :root .bottom-bar-light .gold-underline:hover,
+  :root .bottom-bar-light .gold-underline.is-active {
+    background-size: 100% 1px;
+  }
+
+  .memo-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid rgba(42, 34, 24, 0.18);
+    background: rgba(243, 239, 231, 0.85);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .memo-table thead {
+    background: rgba(201, 154, 90, 0.18);
+  }
+
+  .memo-table th,
+  .memo-table td {
+    border: 1px solid rgba(42, 34, 24, 0.12);
+    padding: 12px 14px;
+    text-align: left;
+    vertical-align: top;
+    font-size: 0.95rem;
+  }
+
+  .memo-table th {
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    color: var(--text-light);
+  }
+
+  .memo-table tbody tr:nth-child(even) {
+    background: rgba(243, 239, 231, 0.6);
+  }
+
+  .dark .memo-table {
+    border: 1px solid rgba(231, 225, 214, 0.16);
+    background: rgba(24, 19, 15, 0.9);
+  }
+
+  .dark .memo-table thead {
+    background: rgba(226, 199, 154, 0.18);
+  }
+
+  .dark .memo-table th,
+  .dark .memo-table td {
+    border: 1px solid rgba(231, 225, 214, 0.12);
+  }
+
+  .dark .memo-table th {
+    color: var(--text-dark);
+  }
+
+  .dark .memo-table tbody tr:nth-child(even) {
+    background: rgba(28, 23, 18, 0.75);
   }
 
   /* Sidebar gold override */

@@ -44,6 +44,29 @@ export function HomeClient({ sections, preface }: Props) {
     });
   }, []);
 
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.defaultPrevented) return;
+      const target = event.target as HTMLElement | null;
+      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) {
+        return;
+      }
+      if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+      const currentIndex = sections.findIndex(section => section.id === activeSection);
+      if (currentIndex < 0) return;
+      if (event.key === 'ArrowRight' && currentIndex < sections.length - 1) {
+        handleSectionChange(sections[currentIndex + 1].id);
+        event.preventDefault();
+      }
+      if (event.key === 'ArrowLeft' && currentIndex > 0) {
+        handleSectionChange(sections[currentIndex - 1].id);
+        event.preventDefault();
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [sections, activeSection, handleSectionChange]);
+
   const textureClass = showTexture
     ? (theme === 'dark' ? 'bg-topographic' : 'bg-topographic-light')
     : '';
@@ -96,38 +119,44 @@ export function HomeClient({ sections, preface }: Props) {
           />
         </button>
 
-        {/* Texture Toggle - Mobile */}
-        <button
-          onClick={toggleTexture}
-          className={`md:hidden z-[60] w-12 h-12 flex items-center justify-center rounded-full border wiggle-hover transition-opacity ${showTexture ? 'opacity-100' : 'opacity-60'}`}
+        {/* Mobile Toggles */}
+        <div
+          className="md:hidden z-[60] flex items-center gap-2"
           style={{
             position: 'fixed',
             right: '16px',
             bottom: '112px',
-            borderColor: 'rgba(140,106,62,0.25)',
-            backgroundColor: 'rgba(31,26,20,0.35)',
+            ['--gold-500' as 'any']: '#E2C79A',
+            ['--gold-300' as 'any']: '#E2C79A',
           }}
-          aria-label="Toggle contour background"
         >
-          <span
-            className="w-6 h-6 block"
+          <button
+            onClick={toggleTexture}
+            className={`w-12 h-12 flex items-center justify-center rounded-full border wiggle-hover transition-opacity ${showTexture ? 'opacity-100' : 'opacity-60'}`}
             style={{
-              backgroundColor: theme === 'light' ? 'var(--sidebar-bg)' : '#E2C79A',
-              WebkitMaskImage: "url('/shovel%20icon.png')",
-              maskImage: "url('/shovel%20icon.png')",
-              WebkitMaskRepeat: 'no-repeat',
-              maskRepeat: 'no-repeat',
-              WebkitMaskSize: 'contain',
-              maskSize: 'contain',
-              WebkitMaskPosition: 'center',
-              maskPosition: 'center',
+              borderColor: 'rgba(140,106,62,0.25)',
+              backgroundColor: 'rgba(31,26,20,0.35)',
             }}
-          />
-        </button>
-
-        {/* Theme Toggle - Mobile */}
-        <div className="md:hidden fixed top-4 right-4 z-[60]">
-          <ThemeToggle theme={theme} onToggle={toggleTheme} />
+            aria-label="Toggle contour background"
+          >
+            <span
+              className="w-10 h-10 block"
+              style={{
+                backgroundColor: theme === 'light' ? 'var(--sidebar-bg)' : '#E2C79A',
+                WebkitMaskImage: "url('/shovel%20icon.png')",
+                maskImage: "url('/shovel%20icon.png')",
+                WebkitMaskRepeat: 'no-repeat',
+                maskRepeat: 'no-repeat',
+                WebkitMaskSize: 'contain',
+                maskSize: 'contain',
+                WebkitMaskPosition: 'center',
+                maskPosition: 'center',
+              }}
+            />
+          </button>
+          <div className="w-12 h-12 flex items-center justify-center rounded-full border wiggle-hover" style={{ borderColor: 'rgba(140,106,62,0.25)', backgroundColor: 'rgba(31,26,20,0.35)' }}>
+            <ThemeToggle theme={theme} onToggle={toggleTheme} />
+          </div>
         </div>
 
         {/* Mobile Bottom Bar */}
