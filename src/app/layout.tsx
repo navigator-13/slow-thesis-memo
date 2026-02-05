@@ -3,9 +3,31 @@ import "./globals.css";
 import ClientBody from "./ClientBody";
 import Script from "next/script";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3003";
+
 export const metadata: Metadata = {
-  title: "Essay & Memo Platform",
-  description: "Elegant long-form essay and memo reader",
+  metadataBase: new URL(siteUrl),
+  title: "SYN(THESIS): Creator Fund + Foundation Insights",
+  description: "Backing creator-operators in boutique hospitality and strategic insights for the world’s first private farm collection.",
+  openGraph: {
+    title: "SYN(THESIS): Creator Fund + Foundation Insights",
+    description: "Backing creator-operators in boutique hospitality and strategic insights for the world’s first private farm collection.",
+    type: "website",
+    images: [
+      {
+        url: "/og-synthesis.svg",
+        width: 1200,
+        height: 630,
+        alt: "SYN(THESIS) Creator Fund + Foundation Insights",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SYN(THESIS): Creator Fund + Foundation Insights",
+    description: "Backing creator-operators in boutique hospitality and strategic insights for the world’s first private farm collection.",
+    images: ["/og-synthesis.svg"],
+  },
 };
 
 export default function RootLayout({
