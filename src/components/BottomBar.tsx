@@ -33,6 +33,8 @@ export function BottomBar({ sections, activeSection, onSectionChange, theme }: B
 
   const shortenMobileTitle = (title: string) => {
     if (!title) return title;
+    const lowered = title.toLowerCase();
+    if (lowered === 'executive summary') return 'Summary';
     const colonSplit = title.split(':');
     const slashSplit = colonSplit[0].split('/');
     const base = slashSplit[0].trim();
@@ -72,9 +74,9 @@ export function BottomBar({ sections, activeSection, onSectionChange, theme }: B
             SYN<span className="text-primary">(THESIS)</span>
           </div>
         </button>
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           {/* Scrollable Navigation */}
-          <div className="overflow-x-auto">
+          <div className="overflow-x-scroll overflow-y-hidden bottom-bar-scroll">
             <div className="flex gap-2 px-4 py-3 min-w-max">
               {showSubsections && activeChildren.length > 0 ? (
                 <>
@@ -134,7 +136,7 @@ export function BottomBar({ sections, activeSection, onSectionChange, theme }: B
           </div>
           {showSubsections && activeChildren.length > 0 && (
             <div className="border-t" style={{ borderColor: 'rgba(140,106,62,0.2)' }}>
-              <div className="overflow-x-auto">
+              <div className="overflow-x-scroll overflow-y-hidden bottom-bar-scroll">
                 <div className="flex gap-2 px-4 py-2 min-w-max">
                   {activeChildren.map((section) => (
                     <button

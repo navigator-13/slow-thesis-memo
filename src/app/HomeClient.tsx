@@ -126,7 +126,7 @@ export function HomeClient({ sections, preface }: Props) {
           style={{
             position: 'fixed',
             right: '16px',
-            bottom: '112px',
+            bottom: '80px',
             '--gold-500': '#E2C79A',
             '--gold-300': '#E2C79A',
           } as CSSProperties}

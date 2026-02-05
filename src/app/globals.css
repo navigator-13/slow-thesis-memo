@@ -303,6 +303,12 @@
     background-size: 100% 1px;
   }
 
+  .bottom-bar-scroll {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x;
+  }
+
   .memo-table {
     width: 100%;
     border-collapse: collapse;
