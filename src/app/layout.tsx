@@ -20,13 +20,19 @@ export const metadata: Metadata = {
         height: 630,
         alt: "SYN(THESIS) Creator Fund + Foundation Insights",
       },
+      {
+        url: "/og-synthesis-square.png",
+        width: 1200,
+        height: 1200,
+        alt: "SYN(THESIS) Creator Fund + Foundation Insights",
+      },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "SYN(THESIS): Creator Fund + Foundation Insights",
     description: "Backing creator-operators in boutique hospitality and strategic insights for the world’s first private farm collection.",
-    images: ["/og-synthesis.png"],
+    images: ["/og-synthesis.png", "/og-synthesis-square.png"],
   },
 };
 
