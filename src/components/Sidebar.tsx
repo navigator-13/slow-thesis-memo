@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import type { CSSProperties } from 'react';
 import { SidebarFooterScene } from './SidebarFooterScene';
 
 interface Section {
@@ -34,7 +35,7 @@ export function Sidebar({ sections, activeSection, onSectionChange, theme, onThe
 
   return (
     <aside
-      style={{ ['--gold-500' as 'any']: '#E2C79A', ['--gold-300' as 'any']: '#E2C79A' }}
+      style={{ '--gold-500': '#E2C79A', '--gold-300': '#E2C79A' } as CSSProperties}
       className="
         fixed left-0 top-0 h-screen w-64 bg-[var(--sidebar-bg)] z-50 flex flex-col transition-colors duration-300
       "

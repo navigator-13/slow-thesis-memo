@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from 'react';
+import type { CSSProperties } from 'react';
 import { Sidebar } from '@/components/Sidebar';
 import { BottomBar } from '@/components/BottomBar';
 import { SectionContent } from '@/components/SectionContent';
@@ -128,7 +129,7 @@ export function HomeClient({ sections, preface }: Props) {
             bottom: '112px',
             '--gold-500': '#E2C79A',
             '--gold-300': '#E2C79A',
-          } as React.CSSProperties}
+          } as CSSProperties}
         >
           <button
             onClick={toggleTexture}
