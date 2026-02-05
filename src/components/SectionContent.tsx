@@ -106,17 +106,17 @@ export function SectionContent({ sections, activeSection, onSectionChange, prefa
   };
 
   const markdownComponents = {
-    h1: ({ children }: { children: React.ReactNode }) => (
+    h1: ({ children }: { children?: React.ReactNode }) => (
       <h1 id={slugify(getTextFromChildren(children))} className="text-3xl md:text-4xl lg:text-5xl mb-8 text-primary uppercase tracking-[0.18em] leading-tight">
         {children}
       </h1>
     ),
-    h2: ({ children }: { children: React.ReactNode }) => (
+    h2: ({ children }: { children?: React.ReactNode }) => (
       <h2 id={slugify(getTextFromChildren(children))} className="text-2xl md:text-3xl italic mb-6 mt-10 text-primary">
         {children}
       </h2>
     ),
-    h3: ({ children }: { children: React.ReactNode }) => (
+    h3: ({ children }: { children?: React.ReactNode }) => (
       <h3
         id={slugify(getTextFromChildren(children))}
         className={`text-xl md:text-2xl italic mb-4 mt-8 text-primary ${currentSection?.id === 'operator-profiles' || currentSection?.parentId === 'operator-profiles' ? 'operator-h3' : ''}`}
@@ -124,12 +124,12 @@ export function SectionContent({ sections, activeSection, onSectionChange, prefa
         {children}
       </h3>
     ),
-    h4: ({ children }: { children: React.ReactNode }) => (
+    h4: ({ children }: { children?: React.ReactNode }) => (
       <h4 id={slugify(getTextFromChildren(children))} className="text-lg md:text-xl italic mb-3 mt-6 text-primary">
         {children}
       </h4>
     ),
-    p: ({ children }: { children: React.ReactNode }) => {
+    p: ({ children }: { children?: React.ReactNode }) => {
       if (isJumpToParagraph(children)) {
         const links = extractJumpLinks(children);
         return (
@@ -214,12 +214,12 @@ export function SectionContent({ sections, activeSection, onSectionChange, prefa
         </button>
       );
     },
-    li: ({ children }: { children: React.ReactNode }) => (
+    li: ({ children }: { children?: React.ReactNode }) => (
       <li className="text-primary leading-relaxed">
         {children}
       </li>
     ),
-    a: ({ children, href }: { children: React.ReactNode; href?: string }) => (
+    a: ({ children, href }: { children?: React.ReactNode; href?: string }) => (
       <a
         href={href}
         className="gold-text-hoverable gold-underline gold-link transition-colors duration-200"
@@ -233,23 +233,23 @@ export function SectionContent({ sections, activeSection, onSectionChange, prefa
         style={{ borderColor: 'rgba(140,106,62,0.2)' }}
       />
     ),
-    strong: ({ children }: { children: React.ReactNode }) => <strong className="gold-text-base">{children}</strong>,
-    em: ({ children }: { children: React.ReactNode }) => <em className="italic gold-text-base">{children}</em>,
-    ul: ({ children }: { children: React.ReactNode }) => <ul className="list-disc list-inside space-y-3 mb-6 ml-4">{children}</ul>,
-    ol: ({ children }: { children: React.ReactNode }) => <ol className="list-decimal list-inside space-y-3 mb-6 ml-4">{children}</ol>,
-    table: ({ children }: { children: React.ReactNode }) => (
+    strong: ({ children }: { children?: React.ReactNode }) => <strong className="gold-text-base">{children}</strong>,
+    em: ({ children }: { children?: React.ReactNode }) => <em className="italic gold-text-base">{children}</em>,
+    ul: ({ children }: { children?: React.ReactNode }) => <ul className="list-disc list-inside space-y-3 mb-6 ml-4">{children}</ul>,
+    ol: ({ children }: { children?: React.ReactNode }) => <ol className="list-decimal list-inside space-y-3 mb-6 ml-4">{children}</ol>,
+    table: ({ children }: { children?: React.ReactNode }) => (
       <div className="overflow-x-auto mb-8">
         <table className="memo-table">
           {children}
         </table>
       </div>
     ),
-    thead: ({ children }: { children: React.ReactNode }) => <thead>{children}</thead>,
-    tbody: ({ children }: { children: React.ReactNode }) => <tbody>{children}</tbody>,
-    tr: ({ children }: { children: React.ReactNode }) => <tr>{children}</tr>,
-    th: ({ children }: { children: React.ReactNode }) => <th>{children}</th>,
-    td: ({ children }: { children: React.ReactNode }) => <td>{children}</td>,
-    blockquote: ({ children }: { children: React.ReactNode }) => (
+    thead: ({ children }: { children?: React.ReactNode }) => <thead>{children}</thead>,
+    tbody: ({ children }: { children?: React.ReactNode }) => <tbody>{children}</tbody>,
+    tr: ({ children }: { children?: React.ReactNode }) => <tr>{children}</tr>,
+    th: ({ children }: { children?: React.ReactNode }) => <th>{children}</th>,
+    td: ({ children }: { children?: React.ReactNode }) => <td>{children}</td>,
+    blockquote: ({ children }: { children?: React.ReactNode }) => (
       <blockquote className="border-l-2 border-[color:var(--gold-700)] pl-4 text-muted italic my-6">
         {children}
       </blockquote>
