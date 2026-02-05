@@ -3,6 +3,9 @@ export type ParsedSection = {
   title: string;
   number: string | null;
   content: string;
+  level: 2 | 3;
+  parentId?: string;
+  parentTitle?: string;
 };
 
 export type ParsedDocument = {
@@ -11,7 +14,7 @@ export type ParsedDocument = {
   sections: ParsedSection[];
 };
 
-function slugify(input: string) {
+export function slugify(input: string) {
   return input
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
@@ -53,8 +56,10 @@ export function parseMarkdownSections(markdown: string): ParsedDocument {
   let inPreface = true;
   let skipSection = false;
   let current: ParsedSection | null = null;
+  let currentH2: ParsedSection | null = null;
   let buffer: string[] = [];
   let sectionIndex = 0;
+  let firstH3HandledForCurrentH2 = false;
 
   const flush = () => {
     if (!current) return;
@@ -79,6 +84,8 @@ export function parseMarkdownSections(markdown: string): ParsedDocument {
         flush();
         buffer = [];
         current = null;
+        currentH2 = null;
+        firstH3HandledForCurrentH2 = false;
         continue;
       }
       skipSection = false;
@@ -86,12 +93,41 @@ export function parseMarkdownSections(markdown: string): ParsedDocument {
       flush();
       buffer = [];
       sectionIndex += 1;
+      firstH3HandledForCurrentH2 = false;
       current = {
         id: slugify(title) || `section-${sections.length + 1}`,
         title,
         number: `${toRoman(sectionIndex)}.`,
         content: '',
+        level: 2,
       };
+      currentH2 = current;
+      continue;
+    }
+
+    const h3 = line.match(/^### (.+)$/);
+    if (h3) {
+      if (skipSection) {
+        continue;
+      }
+      const title = h3[1].trim();
+      inPreface = false;
+      if (currentH2 && current === currentH2 && !firstH3HandledForCurrentH2) {
+        firstH3HandledForCurrentH2 = true;
+        buffer.push(line);
+      } else {
+        flush();
+        buffer = [];
+        current = {
+          id: slugify(title) || `section-${sections.length + 1}`,
+          title,
+          number: null,
+          content: '',
+          level: 3,
+          parentId: currentH2?.id,
+          parentTitle: currentH2?.title,
+        };
+      }
       continue;
     }
 
