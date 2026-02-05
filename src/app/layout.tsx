@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/og-synthesis.svg",
+        url: "/og-synthesis.png",
         width: 1200,
         height: 630,
         alt: "SYN(THESIS) Creator Fund + Foundation Insights",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "SYN(THESIS): Creator Fund + Foundation Insights",
     description: "Backing creator-operators in boutique hospitality and strategic insights for the world’s first private farm collection.",
-    images: ["/og-synthesis.svg"],
+    images: ["/og-synthesis.png"],
   },
 };
 
