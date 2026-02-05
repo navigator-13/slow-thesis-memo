@@ -126,9 +126,9 @@ export function HomeClient({ sections, preface }: Props) {
             position: 'fixed',
             right: '16px',
             bottom: '112px',
-            ['--gold-500' as 'any']: '#E2C79A',
-            ['--gold-300' as 'any']: '#E2C79A',
-          }}
+            '--gold-500': '#E2C79A',
+            '--gold-300': '#E2C79A',
+          } as React.CSSProperties}
         >
           <button
             onClick={toggleTexture}
